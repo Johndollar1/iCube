@@ -24,6 +24,61 @@ void initPWM(int address)
 	setPWMFreq(60);
 }
 
+void setPWMFreq(int freq)
+{    
+	float prescaleval = 25000000;    
+	prescaleval /= 4096.0;    
+	prescaleval /= (float)freq;    
+	prescaleval -= 1.0;
+	//    int prescale = floor(prescaleval + 0.5);
+    	int oldmode = wiringPiI2CReadReg8(iPWMHatFD, __MODE1);    
+	int newmode = (oldmode & 0x7F) | 0x10;    
+	wiringPiI2CWriteReg8(iPWMHatFD, __MODE1, newmode);
+	//    wiringPiI2CWriteReg8(iPWMHatFD, __PRESCALE, floor(prescale));    
+	wiringPiI2CWriteReg8(iPWMHatFD, __PRESCALE, 101);
+    	wiringPiI2CWriteReg8(iPWMHatFD, __MODE1, oldmode);
+    	wiringPiI2CWriteReg8(iPWMHatFD, __MODE1, oldmode | 0x80);
+}
+
+void setPWM(int channel, int on, int off)
+{    
+	wiringPiI2CWriteReg8(iPWMHatFD, __LED0_ON_L+4*channel, on & 0xFF);    
+	wiringPiI2CWriteReg8(iPWMHatFD, __LED0_ON_H+4*channel, on >> 8);    
+	wiringPiI2CWriteReg8(iPWMHatFD, __LED0_OFF_L+4*channel, off & 0xFF);    
+	wiringPiI2CWriteReg8(iPWMHatFD, __LED0_OFF_H+4*channel, off >> 8);
+}
+
+void resetAllPWM(int on, int off)
+{    
+	wiringPiI2CWriteReg8(iPWMHatFD, __ALL_LED_ON_L, on & 0xFF);    
+	wiringPiI2CWriteReg8(iPWMHatFD, __ALL_LED_ON_H, on >> 8);    
+	wiringPiI2CWriteReg8(iPWMHatFD, __ALL_LED_OFF_L, off & 0xFF);    
+	wiringPiI2CWriteReg8(iPWMHatFD, __ALL_LED_OFF_H, off >> 8);
+}
+
+void moveSlow(int sNum, int curPos, int toPos, int mSpeed)
+{
+    	int loopCount = curPos;
+    
+	if(curPos >= toPos) 
+	{ 
+		while(loopCount >= toPos)  
+		{  
+			setPWM(sNum, 0, loopCount);  
+			loopCount = loopCount -1;  
+			usleep(mSpeed);  
+		} 
+	}    
+	else 
+	{ 
+		while (toPos >= loopCount)  
+		{  
+			setPWM(sNum, 0, loopCount);  
+			loopCount = loopCount+1;  usleep(mSpeed);  
+		} 
+	}
+}
+
 int getch(int ms)
 {    
 	int ret;
