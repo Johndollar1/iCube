@@ -10,6 +10,8 @@
 #include <wiringPi.h>
 
 int iPWMHatFD = -1;
+int iDefaultSpeed = 10000;
+int iStep = 2;
 
 void initPWM(int address)
 {
@@ -108,13 +110,22 @@ int getch(int ms)
 
 int main(void)
 {
-
 	int iServoNum [6] = {0, 2, 4, 6, 8, 10};
+	int iServoPos[6] = {368, 756, 530, 216, 306, 488}
 	int iSelectedServo;
-	int x;
+	int i, x;
+
+	printf("Init I2C to PWM HAt\n");
+	iPWMHatFD = wiringPiI2CSetup(0x40);
+	initPWM();
+	printf("Sending init command to all PWM HAT devices\n");
+
+	for (i = 1, i <= 6, i++)
+		{
+			setPWM(iServoNum[i], 0, iServoPos[i]);
+		}
 
 	iSelectedServo = 0;
-
     	do 
 	{
        		if ((x = getch(500)))
@@ -126,17 +137,20 @@ int main(void)
     			}
 			if (x == 109)
 			{
-				printf("Increasing Servo Value\n");
+				moveSlow(iServoNum[iSelectedServo], iServoPos[iSelectedServo], iServoPos[iSelectedServo] + iStep, iDefaultSpeed)
+				iServoPos[i] = iServoPos[i] + iStep;
+				printf("Servo Value for Servo '%i' increased to '%i'\n", iServoNum[iSelectedServo], iServoPos[iSelectedServo]);
 			}
 			if (x == 108)
 			{
-				printf("Decreasing Servo Value\n");
+				moveSlow(iServoNum[iSelectedServo], iServoPos[iSelectedServo], iServoPos[iSelectedServo] - iStep, iDefaultSpeed)
+				iServoPos[i] = iServoPos[i] - iStep;
+				printf("Servo Value for Servo '%i' decreased to '%i'\n", iServoNum[iSelectedServo]), iServoPos[iSelectedServo];
 			}
 		}
 	}
 	while (x != 'q');
     
 	return 0;
-
 }
 
