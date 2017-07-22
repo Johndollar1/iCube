@@ -159,7 +159,7 @@ int main(void)
 			{
 				iNewServoPosition = iServoPos[iArrayPosition] - iStep;
 				moveSlow(iSelectedServo, iServoPos[iArrayPosition], iNewServoPosition, iMoveSpeed);
-				iServoPos[iArrayPosition] = iNewServoPosition
+				iServoPos[iArrayPosition] = iNewServoPosition;
 				printf("Servo Value for Servo '%i' decreased to '%i'\n", iSelectedServo, iNewServoPosition);
 			}
 			if (x == 112)
