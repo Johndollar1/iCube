@@ -129,8 +129,8 @@ int main(void)
 	iSelectedServo = 0;
 
 	printf("Init I2C to PWM HAt\n");
-//	iPWMHatFD = wiringPiI2CSetup(0x40);
-	initPWM(0x40);
+	iPWMHatFD = wiringPiI2CSetup(0x40);
+	initPWM();
 	printf("Sending init command to all PWM HAT devices\n");
 
 	for (i = 1; i <= 5; i++)
