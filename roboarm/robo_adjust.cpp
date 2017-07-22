@@ -133,10 +133,13 @@ int main(void)
 	initPWM();
 	printf("Sending init command to all PWM HAT devices\n");
 
-	for (i = 1; i <= 5; i++)
+	for (i = 0; i <= 5; i++)
 	{
-			setPWM(iServoNum[i], 0, iServoPos[i]);
+		printf("Set '%i' to '%i'\n", iServoNum[i], iServoPos[i]);
+		setPWM(iServoNum[i], 0, iServoPos[i]);
 	}
+
+	printf("Ready for input\n");
 
     do 
 	{
