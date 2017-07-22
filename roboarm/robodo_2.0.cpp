@@ -13,6 +13,7 @@
 char sConfigFileName[] = "/home/pi/projects/family-project/i2c/armconfig.ini";
 
 int iPWMHatFD = -1;
+int iMoveSpeed = 10000;
 
 //			min, mid, max
 double dLimitArray[] = {0, 0, 0, 0, 0};
@@ -148,34 +149,61 @@ void moveSlow(int sNum, int curPos, int toPos, int mSpeed)
 int main(int argc, char **argv)
 {
 
+	int iInit[][] = {
+		{2, 0, 4, 6, 8, 10},
+		{430, 458, 504, 108, 306, 614}
+	};
+
+	int iMoves[][][] = {
+		{4, 2, 0, 6, 2, 8, 4, 2, 10, 2, 0, 2, 8, 10},
+		{504, 430, 458, 108, 324, 306, 406, 292, 614, 260, 334, 396, 546, 538},
+		{406, 324, 334, 516, 292, 546, 386, 260, 538, 396, 572, 338, 326, 454}
+	};
+
+	int iPark[][][] = {
+		{2, 0, 4, 6, 8, 10},
+		{338, 572, 386, 516, 326, 454},
+		{430, 458, 504, 108, 306, 614}
+	};
+
+	int iPtr;
+
 	printf("Init I2C to PWM HAt\n");
 	iPWMHatFD = wiringPiI2CSetup(0x40);
 	initPWM();
-	printf("Sending command 320 to all PWM HAT devices\n");
+	printf("Sending init command to all PWM HAT devices\n");
+	
+	For (iPtr = 0; iPtr < 6; iPtr++)
+	{
+		printf("Setting Servo '%i' to '%i'\n", iInit[0][iPtr], iInit[1][iPtr]);
+		setPWM(iInit[0][iPtr], 0, iInit[1][iPtr]);
+	}
+
+
+	print("Sending move commands to servos !\n");
+
+	for (iPtr = 0; iPtr < 14; iPtr++)
+	{
+		printf("Setting Servo '%i' from '%i' to '%i'\n", iMoves[0][iPtr], iMoves[1][iPtr], iMoves[2][iPtr]);
+		moveSlow(iMoves[0][iPtr], iMoves[1][iPtr], iMoves[2][iPtr], iMoveSpeed);
+	}
+
+	print("Sending park commands to servos !\n");
+
+	for (iPtr = 0; iPtr < 14; iPtr++)
+	{
+		printf("Setting Servo '%i' from '%i' to '%i'\n", iPark[0][iPtr], iPark[1][iPtr], iPark[2][iPtr]);
+		moveSlow(iPark[0][iPtr], iPark[1][iPtr], iPark[2][iPtr], iMoveSpeed);
+	}
+
+/*
 	setPWM(0, 0, 369);
 	setPWM(2, 0, 756);
 	setPWM(4, 0, 530);
 	setPWM(6, 0, 216);
 	setPWM(8, 0, 307);
 	setPWM(10, 0, 488);
-
-	printf("Sending moveSlow to Servo 2\n");
-	moveSlow(2, 756, 481, 10000);
-
-	printf("Sending moveSlow to Servo 10\n");
-	moveSlow(10, 488, 621, 10000);
-
-	printf("Sending moveSlow to Servo 10\n");
-	moveSlow(10, 621, 488, 10000);
-
-	printf("Sending moveSlow to Servo 10\n");
-	moveSlow(10, 488, 621, 10000);
-
-	printf("Sending moveSlow to Servo 10\n");
-	moveSlow(10, 621, 488, 10000);
-
-	printf("Sending moveSlow to Servo 2\n");
-	moveSlow(2, 481, 756, 10000);
+*/
 
 	return 0;
 
