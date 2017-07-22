@@ -5,7 +5,7 @@
 //#include <math.h>
 #include <stdlib.h>
 #include <string.h>
-#include <libconfig.h>
+//#include <libconfig.h>
 
 #define TRIG 4
 #define ECHO 5
