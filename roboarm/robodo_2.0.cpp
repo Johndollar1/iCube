@@ -154,13 +154,13 @@ int main(int argc, char **argv)
 		{430, 458, 504, 108, 306, 614}
 	};
 
-	int iMoves[3][14][14] = {
+	int iMoves[3][14] = {
 		{4, 2, 0, 6, 2, 8, 4, 2, 10, 2, 0, 2, 8, 10},
 		{504, 430, 458, 108, 324, 306, 406, 292, 614, 260, 334, 396, 546, 538},
 		{406, 324, 334, 516, 292, 546, 386, 260, 538, 396, 572, 338, 326, 454}
 	};
 
-	int iPark[3][6][6] = {
+	int iPark[3][6] = {
 		{2, 0, 4, 6, 8, 10},
 		{338, 572, 386, 516, 326, 454},
 		{430, 458, 504, 108, 306, 614}
@@ -173,14 +173,14 @@ int main(int argc, char **argv)
 	initPWM();
 	printf("Sending init command to all PWM HAT devices\n");
 	
-	For (iPtr = 0; iPtr < 6; iPtr++)
+	for (iPtr = 0; iPtr < 6; iPtr++)
 	{
 		printf("Setting Servo '%i' to '%i'\n", iInit[0][iPtr], iInit[1][iPtr]);
 		setPWM(iInit[0][iPtr], 0, iInit[1][iPtr]);
 	}
 
 
-	print("Sending move commands to servos !\n");
+	printf("Sending move commands to servos !\n");
 
 	for (iPtr = 0; iPtr < 14; iPtr++)
 	{
@@ -188,7 +188,7 @@ int main(int argc, char **argv)
 		moveSlow(iMoves[0][iPtr], iMoves[1][iPtr], iMoves[2][iPtr], iMoveSpeed);
 	}
 
-	print("Sending park commands to servos !\n");
+	printf("Sending park commands to servos !\n");
 
 	for (iPtr = 0; iPtr < 14; iPtr++)
 	{
