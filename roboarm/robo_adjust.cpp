@@ -120,7 +120,7 @@ int getch(int ms)
 int main(void)
 {
 	int iServoNum [6] = {0, 2, 4, 6, 8, 10};
-	int iServoPos[6] = {368, 756, 530, 216, 306, 488};
+	int iServoPos[6] = {458, 430, 504, 152, 306, 580};
 	int iArrayPosition;
 	int iNewServoPosition;
 	int iSelectedServo;

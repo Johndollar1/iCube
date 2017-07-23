@@ -2,43 +2,11 @@
 #include <wiringPi.h>
 #include <stdio.h>
 #include <unistd.h>
-//#include <math.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <libconfig.h>
-
-#define TRIG 4
-#define ECHO 5
-
-char sConfigFileName[] = "/home/pi/projects/family-project/i2c/armconfig.ini";
 
 int iPWMHatFD = -1;
 int iMoveSpeed = 10000;
-
-//			min, mid, max
-double dLimitArray[] = {0, 0, 0, 0, 0};
-
-void gpioSetup()
-{
-	wiringPiSetup();
-	pinMode(TRIG, OUTPUT);
-	pinMode(ECHO, INPUT);
-
-	//TRIG pin has to be low
-	digitalWrite(TRIG,LOW);
-
-	delay(30);
-}
-
-bool bCalcArray(double *dArray)
-	{
-
-	dArray[3] = (dArray[1] - dArray[0]) / 100;
-	dArray[4] = (dArray[2] - dArray[1]) / 100;
-
-	return true;
-
-	}
 
 int strToint(char *inString)
 	{
@@ -150,23 +118,24 @@ int main(int argc, char **argv)
 {
 
 	int iInit[2][6] = {
-		{2, 0, 4, 6, 8, 10},
-		{430, 458, 504, 108, 306, 614}
+		{  2,   0,   4,   6,   8,  10},
+		{430, 458, 504, 152, 306, 580}
 	};
 
 	int iMoves[3][14] = {
-		{4, 2, 0, 6, 2, 8, 4, 2, 10, 2, 0, 2, 8, 10},
-		{504, 430, 458, 108, 324, 306, 406, 292, 614, 260, 334, 396, 546, 538},
-		{406, 324, 334, 516, 292, 546, 386, 260, 538, 396, 572, 338, 326, 454}
+		{  4,   0,  10,   2,   8,   2,  10,   2,   0,   2,   4,   2,  10},
+		{504, 458, 580, 430, 306, 324, 474, 302, 340, 450, 464, 406, 544},
+		{464, 340, 474, 324, 580, 302, 544, 450, 582, 406, 440, 358, 474}
 	};
 
 	int iPark[3][6] = {
-		{2, 0, 4, 6, 8, 10},
-		{338, 572, 386, 516, 326, 454},
-		{430, 458, 504, 108, 306, 614}
+		{  2,   0,   4,   6,   8,  10},
+		{358, 582, 440, 152, 580, 474},
+		{430, 458, 504, 152, 306, 580}
 	};
 
 	int iPtr;
+	int c;
 
 	printf("Init I2C to PWM HAt\n");
 	iPWMHatFD = wiringPiI2CSetup(0x40);
@@ -177,33 +146,28 @@ int main(int argc, char **argv)
 	{
 		printf("Setting Servo '%i' to '%i'\n", iInit[0][iPtr], iInit[1][iPtr]);
 		setPWM(iInit[0][iPtr], 0, iInit[1][iPtr]);
+//c = getchar();
 	}
 
 
 	printf("Sending move commands to servos !\n");
 
-	for (iPtr = 0; iPtr < 14; iPtr++)
+	for (iPtr = 0; iPtr <= 12; iPtr++)
 	{
 		printf("Setting Servo '%i' from '%i' to '%i'\n", iMoves[0][iPtr], iMoves[1][iPtr], iMoves[2][iPtr]);
 		moveSlow(iMoves[0][iPtr], iMoves[1][iPtr], iMoves[2][iPtr], iMoveSpeed);
+//c = getchar();
 	}
 
 	printf("Sending park commands to servos !\n");
 
-	for (iPtr = 0; iPtr < 14; iPtr++)
+	for (iPtr = 0; iPtr < 6; iPtr++)
 	{
 		printf("Setting Servo '%i' from '%i' to '%i'\n", iPark[0][iPtr], iPark[1][iPtr], iPark[2][iPtr]);
 		moveSlow(iPark[0][iPtr], iPark[1][iPtr], iPark[2][iPtr], iMoveSpeed);
+//c = getchar();
 	}
 
-/*
-	setPWM(0, 0, 369);
-	setPWM(2, 0, 756);
-	setPWM(4, 0, 530);
-	setPWM(6, 0, 216);
-	setPWM(8, 0, 307);
-	setPWM(10, 0, 488);
-*/
 
 	return 0;
 
