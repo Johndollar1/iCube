@@ -6,7 +6,7 @@
 #include <string.h>
 
 int iPWMHatFD = -1;
-int iMoveSpeed = 10000;
+int iMoveSpeed = 8000;
 
 int strToint(char *inString)
 	{
@@ -141,13 +141,15 @@ int main(int argc, char **argv)
 	iPWMHatFD = wiringPiI2CSetup(0x40);
 	initPWM();
 	printf("Sending init command to all PWM HAT devices\n");
+
+//c = getchar();
 	
 	for (iPtr = 0; iPtr < 6; iPtr++)
 	{
 		printf("Setting Servo '%i' to '%i'\n", iInit[0][iPtr], iInit[1][iPtr]);
 		setPWM(iInit[0][iPtr], 0, iInit[1][iPtr]);
-//c = getchar();
 	}
+c = getchar();
 
 
 	printf("Sending move commands to servos !\n");
