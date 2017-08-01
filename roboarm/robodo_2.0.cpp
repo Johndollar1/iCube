@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define SWITCH 4
+
 int iPWMHatFD = -1;
 int iMoveSpeed = 8000;
 
@@ -32,6 +34,26 @@ int strToint(char *inString)
 		}
 
 	return(iResult);
+	}
+
+void gpioSetup()
+	{
+	wiringPiSetup();
+	pinMode(SWITCH, OUTPUT);
+	digitalWrite(SWITCH, LOW);
+	delay(30);
+	}
+
+void setSwitch(bool switchOn)
+	{
+	if(switchOn==true)
+		{
+		digitalWrite(SWITCH, HIGH);
+		}
+	else
+		{
+		digitalWrite(SWITCH, LOW);
+		}
 	}
 
 void initPWM(int address)
@@ -137,6 +159,12 @@ int main(int argc, char **argv)
 	int iPtr;
 	int c;
 
+	printf("Initailizing GPIO\n");
+	gpioSetup();
+
+//c = getchar();
+	usleep(100000);
+
 	printf("Init I2C to PWM HAt\n");
 	iPWMHatFD = wiringPiI2CSetup(0x40);
 	initPWM();
@@ -144,13 +172,24 @@ int main(int argc, char **argv)
 
 //c = getchar();
 	
+	printf("Servos to Park\n");
+
 	for (iPtr = 0; iPtr < 6; iPtr++)
 	{
 		printf("Setting Servo '%i' to '%i'\n", iInit[0][iPtr], iInit[1][iPtr]);
 		setPWM(iInit[0][iPtr], 0, iInit[1][iPtr]);
 	}
-c = getchar();
 
+	usleep(100000);
+	printf("Setting SWITCH to LOW\n");
+	setSwitch(false);
+
+//c = getchar();
+
+	printf("Setting SWITCH to HIGH\n");
+	setSwitch(true);
+
+//c = getchar();
 
 	printf("Sending move commands to servos !\n");
 
