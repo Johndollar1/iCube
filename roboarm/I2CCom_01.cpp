@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <//usr/include/linux/i2c-dev.h>
-#include <//usr/include/linux/ioctl.h>
+//#include <//usr/include/linux/ioctl.h>
+#include <sys/ioctl.h>
 #include <fcntl.h>
 
 // The Arduino board i2c address
