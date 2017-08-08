@@ -8,9 +8,31 @@
 #include <termios.h>
 #include <poll.h>
 
+#define SWITCH 4
+
 int iStep = 2;
 int iPWMHatFD = -1;
 int iMoveSpeed = 10000;
+
+void gpioSetup()
+        {
+        wiringPiSetup();
+        pinMode(SWITCH, OUTPUT);
+        digitalWrite(SWITCH, LOW);
+        delay(30);
+        }
+
+void setSwitch(bool switchOn)
+        {
+        if(switchOn==true)
+                {
+                digitalWrite(SWITCH, HIGH);
+                }
+        else
+                {
+                digitalWrite(SWITCH, LOW);
+                }
+        }
 
 void setPWMFreq(int freq)
 {
@@ -120,13 +142,16 @@ int getch(int ms)
 int main(void)
 {
 	int iServoNum [6] = {0, 2, 4, 6, 8, 10};
-	int iServoPos[6] = {458, 430, 504, 152, 306, 580};
+	int iServoPos[6] = {468, 356, 402, 380, 380, 260};
 	int iArrayPosition;
 	int iNewServoPosition;
 	int iSelectedServo;
 	int i, x;
 
 	iSelectedServo = 0;
+
+        printf("Initailizing GPIO\n");
+        gpioSetup();
 
 	printf("Init I2C to PWM HAt\n");
 	iPWMHatFD = wiringPiI2CSetup(0x40);
@@ -139,12 +164,16 @@ int main(void)
 		setPWM(iServoNum[i], 0, iServoPos[i]);
 	}
 
+        printf("Setting SWITCH to HIGH\n");
+        setSwitch(true);
+
 	printf("Ready for input\n");
 
-    do 
+    	do
 	{
        		if ((x = getch(500)))
 		{
+//printf("Character %i\n", x);
 			if (x-49 >= 0 and x-49 <= 5)
 			{
 				iArrayPosition = x-49;
@@ -176,6 +205,9 @@ int main(void)
 		}
 	}
 	while (x != 'q');
-    
+
+	printf("Setting SWITCH to LOW\n");
+	setSwitch(false);
+
 	return 0;
 }
