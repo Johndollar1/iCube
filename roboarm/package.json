@@ -1,0 +1,17 @@
+{
+  "name": "roboarm",
+  "version": "1.0.0",
+  "description": "A project to show info cube functionalities",
+  "main": "index.js",
+  "dependencies": {
+    "i2c": "^0.2.3",
+    "nanotimer": "^0.3.15",
+    "rpio": "^0.9.17"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Peter Bosch",
+  "license": "MIT"
+}
