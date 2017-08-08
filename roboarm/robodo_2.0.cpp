@@ -8,7 +8,7 @@
 #define SWITCH 4
 
 int iPWMHatFD = -1;
-int iMoveSpeed = 12000;
+int iMoveSpeed = 8000;
 
 int strToint(char *inString)
 	{
@@ -57,21 +57,21 @@ void setSwitch(bool switchOn)
 	}
 
 void initPWM(int address)
-{
-    iPWMHatFD = wiringPiI2CSetup(address);
+	{
+    	iPWMHatFD = wiringPiI2CSetup(address);
 
 
-    // zero all PWM ports
-    resetAllPWM(0,0);
+    	// zero all PWM ports
+    	resetAllPWM(0,0);
 
-    wiringPiI2CWriteReg8(iPWMHatFD, __MODE2, __OUTDRV);
-    wiringPiI2CWriteReg8(iPWMHatFD, __MODE1, __ALLCALL);
+    	wiringPiI2CWriteReg8(iPWMHatFD, __MODE2, __OUTDRV);
+    	wiringPiI2CWriteReg8(iPWMHatFD, __MODE1, __ALLCALL);
 
-    int mode1 = wiringPiI2CReadReg8(iPWMHatFD, __MODE1);
-    mode1 = mode1 & ~__SLEEP;
-    wiringPiI2CWriteReg8(iPWMHatFD, __MODE1, mode1);
+    	int mode1 = wiringPiI2CReadReg8(iPWMHatFD, __MODE1);
+    	mode1 = mode1 & ~__SLEEP;
+    	wiringPiI2CWriteReg8(iPWMHatFD, __MODE1, mode1);
 
-    setPWMFreq(60);
+    	setPWMFreq(60);
 }
 
 void setPWMFreq(int freq)
@@ -162,7 +162,6 @@ int main(int argc, char **argv)
 	printf("Initailizing GPIO\n");
 	gpioSetup();
 
-//c = getchar();
 	usleep(100000);
 
 	printf("Init I2C to PWM HAt\n");
@@ -170,8 +169,6 @@ int main(int argc, char **argv)
 	initPWM();
 	printf("Sending init command to all PWM HAT devices\n");
 
-//c = getchar();
-	
 	printf("Servos to Park\n");
 
 	for (iPtr = 0; iPtr < 6; iPtr++)
@@ -184,12 +181,8 @@ int main(int argc, char **argv)
 	printf("Setting SWITCH to LOW\n");
 	setSwitch(false);
 
-//c = getchar();
-
 	printf("Setting SWITCH to HIGH\n");
 	setSwitch(true);
-
-//c = getchar();
 
 	printf("Sending move commands to servos !\n");
 
@@ -197,7 +190,6 @@ int main(int argc, char **argv)
 	{
 		printf("Setting Servo '%i' from '%i' to '%i'\n", iMoves[0][iPtr], iMoves[1][iPtr], iMoves[2][iPtr]);
 		moveSlow(iMoves[0][iPtr], iMoves[1][iPtr], iMoves[2][iPtr], iMoveSpeed);
-//c = getchar();
 	}
 
 	printf("Sending park commands to servos !\n");
@@ -206,12 +198,13 @@ int main(int argc, char **argv)
 	{
 		printf("Setting Servo '%i' from '%i' to '%i'\n", iPark[0][iPtr], iPark[1][iPtr], iPark[2][iPtr]);
 		moveSlow(iPark[0][iPtr], iPark[1][iPtr], iPark[2][iPtr], iMoveSpeed);
-//c = getchar();
 	}
 
 	printf("Setting SWITCH to LOW\n");
 	setSwitch(false);
 
+
+	printf("Return Errorcode 0\n");
 
 	return 0;
 
