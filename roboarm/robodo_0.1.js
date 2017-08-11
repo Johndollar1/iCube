@@ -28,32 +28,33 @@ pwmDriver.init()
 	.then(function() { console.log('Robo ready!') });
 
 const iInit = {
-	0: 350,
-	2: 350,
-	4: 350,
-	6: 350,
-	8: 350,
-	10: 350
-};
-const iPosition = {
-	0: 350,
-	2: 350,
-	4: 350,
-	6: 350,
-	8: 350,
-	10: 350
+	0: 468,
+	2: 356,
+	4: 402,
+	6: 380,
+	8: 380,
+	10: 206
 };
 
-const arrMoves = [iInit]; // erstelle array mit erstem eintrag initial stellung
+const iPosition = {
+	0: 468,
+	2: 356,
+	4: 402,
+	6: 380,
+	8: 380,
+	10: 206
+};
+
+const arrMoves = [iPosition]; // erstelle array mit erstem eintrag initial stellung
 
 // danach definieren wir weitere stellungen welche wir nach einander einnehmen wollen
 arrMoves.push({
-	0: 425,
-	2: 425,
-	4: 425,
-	6: 425,
-	8: 425,
-	10: 425
+	0: 468,
+	2: 356,
+	4: 402,
+	6: 380,
+	8: 380,
+	10: 206
 });
 
 arrMoves.push({
