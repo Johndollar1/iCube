@@ -1,3 +1,32 @@
+const makePwmDriver = require('./pwmDriver');
+const pwmDriver = makePwmDriver({address: 0x40, device: '/dev/i2c-1', debug: true});
+
+const rpio = require('rpio');
+
+const NanoTimer = require('nanotimer')
+
+const trigPin = 16;    // Trigger pin 16 = GPIO port 23
+
+const iMoveSpeed = 8000;
+
+rpio.open(trigPin, rpio.OUTPUT, rpio.LOW);
+
+rpio.write(trigPin, rpio.HIGH);
+
+pwmDriver.init()
+	.then(function() { return pwmDriver.setPWMFreq(60) })
+	.then(function() {
+		return Promise.all([
+			pwmDriver.setPWM(0, 0, iInit[0]),
+			pwmDriver.setPWM(2, 0, iInit[2]),
+			pwmDriver.setPWM(4, 0, iInit[4]),
+			pwmDriver.setPWM(6, 0, iInit[6]),
+			pwmDriver.setPWM(8, 0, iInit[8]),
+			pwmDriver.setPWM(10, 0, iInit[10])
+		])
+	})
+	.then(function() { console.log('Robo ready!') });
+
 const iInit = {
 	0: 350,
 	2: 350,
@@ -74,120 +103,12 @@ for (var i = 0; i < arrMoves.length; i++) {
 
 promiseChain.then(function() {
 	console.log('Done with all movements!')
-	rpio.setRoboArmRelaisOff() // ich weiss den befehl nicht mehr genau :)
+	rpio.write(trigPin, rpio.LOW);
 })
 .catch(function(err) {
 	console.error(err);
-	rpio.setRoboArmRelaisOff() // ich weiss den befehl nicht mehr genau :)
+	rpio.write(trigPin, rpio.LOW);
 })
-
-const makePwmDriver = require('./pwmDriver');
-const pwmDriver = makePwmDriver({address: 0x40, device: '/dev/i2c-1', debug: true});
-
-const rpio = require('rpio');
-
-const NanoTimer = require('nanotimer')
-
-const stdin = process.stdin;
-stdin.setRawMode(true);
-stdin.resume();
-stdin.setEncoding('utf8');
-
-const trigPin = 16;    // Trigger pin 16 = GPIO port 23
-
-const iMoveSpeed = 8000;
-
-rpio.open(trigPin, rpio.OUTPUT, rpio.LOW);
-
-rpio.write(trigPin, rpio.HIGH);
-
-pwmDriver.init()
-	.then(function() { return pwmDriver.setPWMFreq(60) })
-	.then(function() {
-		return Promise.all([
-			pwmDriver.setPWM(0, 0, iInit[0]),
-			pwmDriver.setPWM(2, 0, iInit[2]),
-			pwmDriver.setPWM(4, 0, iInit[4]),
-			pwmDriver.setPWM(6, 0, iInit[6]),
-			pwmDriver.setPWM(8, 0, iInit[8]),
-			pwmDriver.setPWM(10, 0, iInit[10])
-		])
-	})
-	.then(function() { console.log('Robo ready!') });
-
-
-const iInit = {
-	 0: 468,
-	 2: 356,
-	 4: 402,
-	 6: 380,
-	 8: 380,
-	10: 206
-};
-const iPositions = {
-	 0: 468,
-	 2: 356,
-	 4: 402,
-	 6: 380,
-	 8: 380,
-	10: 206
-};
-
-let currentDevice = 0;
-stdin.on('data', function (key) 
-{
-	console.log(typeof key);
-	if (key === '\u0003') {
-		Promise.all([
-			moveSmooth(0, iPositions[0], iInit[0]),
-			moveSmooth(2, iPositions[2], iInit[2]),
-			moveSmooth(4, iPositions[4], iInit[4]),
-			moveSmooth(6, iPositions[6], iInit[6]),
-			moveSmooth(8, iPositions[8], iInit[8]),
-			moveSmooth(10, iPositions[10], iInit[10])
-		])
-		.then(function() {
-			rpio.write(trigPin, rpio.LOW);
-			process.exit();
-		})
-	}
-	switch(key)
-	{
-		case '1':
-			currentDevice = 0;
-			break;
-		case '2':
-			currentDevice = 2;
-			break;
-		case '3':
-			currentDevice = 4;
-			break;
-		case '4':
-			currentDevice = 6;
-			break;
-		case '5':
-			currentDevice = 8;
-			break;
-		case '6':
-			currentDevice = 10;
-			break;
-		case 'm':
-			console.log('more');
-			pwmDriver.setPWM(currentDevice, 0, ++iPositions[currentDevice]);
-			break;
-		case 'l':
-			console.log('less');
-			pwmDriver.setPWM(currentDevice, 0, --iPositions[currentDevice]);
-			break;
-		case 'p':
-			console.log(iPositions);
-		
-	}
-	console.log('current Device: ' + currentDevice);
-	
-});
-
-
 
 function usleep (micros) {
   return new Promise(
@@ -207,27 +128,3 @@ function moveSmooth(device, start, end)
 		.then(function() { return usleep(iMoveSpeed) })
 		.then(function() { return moveSmooth(device, start+direction, end) });
 }
-/* pwmDriver.init()
-
-	.then(function() { console.log(0); return pwmDriver.setPWMFreq(60) })
-
-	.then(function() { return Promise.all([
-		moveSmooth( 6, 380, 200),
-		moveSmooth( 8, 380, 200)
-		])
-	})
-	
-	.then(function() { return usleep(1000 * 1000) })
-	
-//	.then(function() { console.log(2); return pwmDriver.setPWM(2, 0, 450) })
-
-	.then(function() { return Promise.all([
-		moveSmooth( 6, 200, 380),
-		moveSmooth( 8, 200, 380)
-		])
-	})
-	.then(function() { return usleep(1000 * 1000) })
-
-	.then(function() { console.log(3); return rpio.write(trigPin, rpio.LOW) });
-*/
-
