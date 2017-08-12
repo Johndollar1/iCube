@@ -45,7 +45,8 @@ const iPosition = {
 	10: 206
 };
 
-const arrMoves = [iPosition]; // erstelle array mit erstem eintrag initial stellung
+//const arrMoves = [iPosition]; // erstelle array mit erstem eintrag initial stellung
+const arrMoves = []; // erstelle array mit erstem eintrag initial stellung
 
 // danach definieren wir weitere stellungen welche wir nach einander einnehmen wollen
 arrMoves.push({
@@ -99,23 +100,23 @@ for (var i = 0; i < arrMoves.length; i++) {
 	})
 	.then(function() { return usleep(pause) });
 }
-
+/*
 Promise.all([
-	moveSmooth(0, iPositions[0], iInit[0]),
-	moveSmooth(2, iPositions[2], iInit[2]),
-	moveSmooth(4, iPositions[4], iInit[4]),
-	moveSmooth(6, iPositions[6], iInit[6]),
-	moveSmooth(8, iPositions[8], iInit[8]),
-	moveSmooth(10, iPositions[10], iInit[10])
+	moveSmooth(0, iPosition[0], iInit[0]),
+	moveSmooth(2, iPosition[2], iInit[2]),
+	moveSmooth(4, iPosition[4], iInit[4]),
+	moveSmooth(6, iPosition[6], iInit[6]),
+	moveSmooth(8, iPosition[8], iInit[8]),
+	moveSmooth(10, iPosition[10], iInit[10])
 	])
-
+*/
 promiseChain.then(function() {
 	console.log('Done with all movements!')
 	rpio.write(trigPin, rpio.LOW);
 })
 .catch(function(err) {
 	console.error(err);
-	rpio.write(trigPin, rpio.LOW);
+//	rpio.write(trigPin, rpio.LOW);
 })
 
 function usleep (micros) {
