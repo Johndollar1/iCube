@@ -49,26 +49,24 @@ const arrMoves = [iPosition]; // erstelle array mit erstem eintrag initial stell
 
 // danach definieren wir weitere stellungen welche wir nach einander einnehmen wollen
 arrMoves.push({
-	0: 468,
-	2: 356,
-	4: 402,
-	6: 380,
-	8: 380,
-	10: 206
+	4: 625,
+	6: 399
 });
 
 arrMoves.push({
-	0: 289,
-	2: 289,
-	4: 289,
-	6: 289,
-	8: 289,
-	10: 289
+       10: 280,
 });
 
-// nur noch die hand um die achse drehen:
+
 arrMoves.push({
-	8: 125
+	0: 235,
+	2: 553,
+	4: 584,
+	6: 257,
+});
+
+arrMoves.push({
+       10: 200
 });
 
 // pause in mü sekunden zwischen den stellungen:
@@ -101,6 +99,15 @@ for (var i = 0; i < arrMoves.length; i++) {
 	})
 	.then(function() { return usleep(pause) });
 }
+
+Promise.all([
+	moveSmooth(0, iPositions[0], iInit[0]),
+	moveSmooth(2, iPositions[2], iInit[2]),
+	moveSmooth(4, iPositions[4], iInit[4]),
+	moveSmooth(6, iPositions[6], iInit[6]),
+	moveSmooth(8, iPositions[8], iInit[8]),
+	moveSmooth(10, iPositions[10], iInit[10])
+	])
 
 promiseChain.then(function() {
 	console.log('Done with all movements!')
