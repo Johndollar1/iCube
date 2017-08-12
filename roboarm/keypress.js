@@ -1,6 +1,6 @@
 
 const makePwmDriver = require('./pwmDriver');
-const pwmDriver = makePwmDriver({address: 0x40, device: '/dev/i2c-1', debug: true});
+const pwmDriver = makePwmDriver({address: 0x40, device: '/dev/i2c-1', debug: false});
 
 const rpio = require('rpio');
 
@@ -54,7 +54,7 @@ const iPositions = {
 let currentDevice = 0;
 stdin.on('data', function (key) 
 {
-	console.log(typeof key);
+//	console.(typeof key);
 	if (key === '\u0003') {
 		Promise.all([
 			moveSmooth(0, iPositions[0], iInit[0]),
@@ -73,35 +73,43 @@ stdin.on('data', function (key)
 	{
 		case '1':
 			currentDevice = 0;
+			console.log('current Device: ' + currentDevice);
 			break;
 		case '2':
 			currentDevice = 2;
+			console.log('current Device: ' + currentDevice);
 			break;
 		case '3':
 			currentDevice = 4;
+			console.log('current Device: ' + currentDevice);
 			break;
 		case '4':
 			currentDevice = 6;
+			console.log('current Device: ' + currentDevice);
 			break;
 		case '5':
 			currentDevice = 8;
+			console.log('current Device: ' + currentDevice);
 			break;
 		case '6':
 			currentDevice = 10;
+			console.log('current Device: ' + currentDevice);
 			break;
 		case 'm':
-			console.log('more');
+//			console.log('more');
 			pwmDriver.setPWM(currentDevice, 0, ++iPositions[currentDevice]);
+			console.log(iPositions[currentDevice]);
 			break;
 		case 'l':
-			console.log('less');
+//			console.log('less');
 			pwmDriver.setPWM(currentDevice, 0, --iPositions[currentDevice]);
+			console.log(iPositions[currentDevice]);
 			break;
 		case 'p':
 			console.log(iPositions);
 		
 	}
-	console.log('current Device: ' + currentDevice);
+//	console.log('current Device: ' + currentDevice);
 	
 });
 
