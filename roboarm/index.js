@@ -2,7 +2,7 @@
 const NanoTimer = require('nanotimer')
 
 const makePwmDriver = require('./pwmDriver');
-const pwmDriver = makePwmDriver({address: 0x40, device: '/dev/i2c-1', debug: true});
+const pwmDriver = makePwmDriver({address: 0x40, device: '/dev/i2c-1', debug: false});
 
 const rpio = require('rpio');
 const trigPin = 16;    // Trigger pin 16 = GPIO port 23

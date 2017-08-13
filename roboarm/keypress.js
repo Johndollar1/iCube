@@ -133,27 +133,3 @@ function moveSmooth(device, start, end)
 		.then(function() { return usleep(iMoveSpeed) })
 		.then(function() { return moveSmooth(device, start+direction, end) });
 }
-/* pwmDriver.init()
-
-	.then(function() { console.log(0); return pwmDriver.setPWMFreq(60) })
-
-	.then(function() { return Promise.all([
-		moveSmooth( 6, 380, 200),
-		moveSmooth( 8, 380, 200)
-		])
-	})
-	
-	.then(function() { return usleep(1000 * 1000) })
-	
-//	.then(function() { console.log(2); return pwmDriver.setPWM(2, 0, 450) })
-
-	.then(function() { return Promise.all([
-		moveSmooth( 6, 200, 380),
-		moveSmooth( 8, 200, 380)
-		])
-	})
-	.then(function() { return usleep(1000 * 1000) })
-
-	.then(function() { console.log(3); return rpio.write(trigPin, rpio.LOW) });
-*/
-
