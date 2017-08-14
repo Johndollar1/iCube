@@ -55,7 +55,8 @@ const arrMoves = [iPosition]; // erstelle array mit erstem eintrag initial stell
 // danach definieren wir weitere stellungen welche wir nach einander einnehmen wollen
 arrMoves.push({
 	4: 625,
-	6: 399
+	6: 399,
+	8: 585
 });
 
 arrMoves.push({
@@ -63,10 +64,16 @@ arrMoves.push({
 });
 
 arrMoves.push({
-	0: 235,
-	2: 553,
 	4: 584,
-	6: 257,
+});
+
+arrMoves.push({
+	0: 235,
+	6: 257
+});
+
+arrMoves.push({
+	2: 553
 });
 
 arrMoves.push({
@@ -86,7 +93,7 @@ console.log("arrMoves : ", arrMoves);
 //console.log("arrMoves.length : ", arrMoves.length);
 
 // pause in mü sekunden zwischen den stellungen:
-const pause = 3 * 1000 * 1000;
+const pause = 1 * 1000 * 1000;
 
 let promiseChain = pwmDriver.init()
 		.then(function() { return pwmDriver.setPWMFreq(60) })
