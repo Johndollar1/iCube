@@ -9,7 +9,9 @@
 	  
 	  		  $.ajax({
     url: 'http://127.0.0.1:1880/test',
-			  data: "stop",
+			  data: {
+				  'action':'stop'
+			  },
     complete : function(){
     },
     success: function(result){
