@@ -1,4 +1,4 @@
-let exports = modules.exports = function roboDo(selected)
+let exports = module.exports = function roboDo(selected)
 {
 
 	const NanoTimer = require('nanotimer')
@@ -155,4 +155,6 @@ let exports = modules.exports = function roboDo(selected)
 	//	rpio.write(trigPin, rpio.LOW);
 	})
 	return promiseChain;
-}
+};
+
+
