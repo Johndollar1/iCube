@@ -1,4 +1,4 @@
-let exports = modules.exports = function roboDo(Selected)
+let exports = modules.exports = function roboDo(selected)
 {
 
 	const NanoTimer = require('nanotimer')
@@ -55,7 +55,7 @@ let exports = modules.exports = function roboDo(Selected)
 	//const arrMoves = [iPosition]; // erstelle array mit erstem eintrag initial stellung
 	const arrMoves = [iPosition]; // erstelle array mit erstem eintrag initial stellung
 
-	switch(Selected)
+	switch(selected)
 	{
 		case 1:
 			arrMoves.push({
@@ -154,5 +154,5 @@ let exports = modules.exports = function roboDo(Selected)
 		console.error(err);
 	//	rpio.write(trigPin, rpio.LOW);
 	})
-
+	return promiseChain;
 }
