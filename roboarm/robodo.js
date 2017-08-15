@@ -1,4 +1,5 @@
-let exports = module.exports = function roboDo(selected)
+//let exports = module.exports = 
+function roboDo(selected)
 {
 
 	const NanoTimer = require('nanotimer')
@@ -58,9 +59,11 @@ let exports = module.exports = function roboDo(selected)
 	switch(selected)
 	{
 		case 1:
+			console.log("Executing Path 1");
 			arrMoves.push({
 			4: 625,
-			6: 399
+			6: 399,
+			8: 585
 			});
 
 			arrMoves.push({
@@ -71,17 +74,20 @@ let exports = module.exports = function roboDo(selected)
 			0: 235,
 			2: 553,
 			4: 584,
-			6: 257,
+			6: 257
 			});
 
 			arrMoves.push({
 	       	10: 200
 			});
+			break;
 				
 		case 2:
+			console.log("Executing Path 2");
 			arrMoves.push({
 			4: 600,
-			6: 350
+			6: 350,
+			8: 585
 			});
 
 			arrMoves.push({
@@ -92,12 +98,13 @@ let exports = module.exports = function roboDo(selected)
 			0: 220,
 			2: 500,
 			4: 500,
-			6: 200,
+			6: 200
 			});
 
 			arrMoves.push({
 	       	10: 200
 			});
+			break;
 
 	}			
 
@@ -157,4 +164,4 @@ let exports = module.exports = function roboDo(selected)
 	return promiseChain;
 };
 
-
+roboDo(2);
