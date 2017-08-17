@@ -6,14 +6,16 @@
 			  data: {
 				  'action':'start-left'
 			  },
-				  datatype: 'jsonp',
+				  datatype: 'json',
     complete : function(){
 				alert("TEST");
 	
     },
     success: function(result){
 		alert("TEST22");
-		//alert(result.message);
+		alert(result[0].hello);
+		alert(result[0]["hello"].value);
+						alert(result.value);
     }
 });	  
 
