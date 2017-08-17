@@ -6,7 +6,7 @@
 			  data: {
 				  'action':'start-left'
 			  },
-				  datatype: 'json',
+				  datatype: 'jsonp',
     complete : function(){
 				alert("TEST");
 	
