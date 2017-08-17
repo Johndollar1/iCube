@@ -6,6 +6,65 @@
 	var glassWithBubbles;
 	  
 	  $( "#btn1" ).click(function() {
+		  
+		  
+		  	  		  $.ajax({
+    url: 'http://127.0.0.1:1880/roboarm',
+			  data: {
+				  'action':'start-left'
+			  },
+    complete : function(){
+    },
+    success: function(result){
+		$.notify("Start left","success");		
+    },
+				  error: function(){
+					  $.notify("Connection to innoCube failed","error");
+					  $('#loading').fadeOut();
+					  $('#locked').fadeIn();
+				  }
+});	 
+		  
+		  $('#choose').fadeOut();
+		  $('#generating').fadeIn();
+		  
+		setTimeout(
+  function() 
+  {
+	  $('#generating').fadeOut();
+	  $('#ready').fadeIn();
+	  $('#beroccaspot').get(0).play();
+var video = $("#beroccaspot").get(0).addEventListener("ended", function() {
+   			$('#ready').fadeOut();
+			$('#choose').fadeIn();
+		});	
+    //do something special
+  }, 15000);
+		 		  
+		  
+});
+	  
+	  
+	    $( "#btn2" ).click(function() {
+		  
+		  
+		  	  		  $.ajax({
+    url: 'http://127.0.0.1:1880/roboarm',
+			  data: {
+				  'action':'start-right'
+			  },
+    complete : function(){
+    },
+    success: function(result){
+		$.notify("Start right","success");		
+    },
+				  error: function(){
+					  $.notify("Connection to innoCube failed","error");
+					  $('#loading').fadeOut();
+					  $('#locked').fadeIn();
+				  }
+});	 
+		  
 		  $('#choose').fadeOut();
 		  $('#generating').fadeIn();
 		  
@@ -28,7 +87,7 @@ var video = $("#beroccaspot").get(0).addEventListener("ended", function() {
 	  		  $.ajax({
     url: 'http://127.0.0.1:1880/roboarm',
 			  data: {
-				  'action':'stop'
+				  'action':'status'
 			  },
     complete : function(){
     },
