@@ -6,21 +6,21 @@
 	var glassWithBubbles;
 	  
 	  $( "#btn1" ).click(function() {
-		  $('#choose').fadeOut("slow");
-		  $('#generating').fadeIn("slow");
+		  $('#choose').fadeOut();
+		  $('#generating').fadeIn();
 		  
 		setTimeout(
   function() 
   {
-	  $('#generating').fadeOut("slow");
-	  $('#ready').fadeIn("slow");
+	  $('#generating').fadeOut();
+	  $('#ready').fadeIn();
 	  $('#beroccaspot').get(0).play();
 var video = $("#beroccaspot").get(0).addEventListener("ended", function() {
-   			$('#ready').fadeOut("slow");
-			$('#choose').fadeIn("slow");
+   			$('#ready').fadeOut();
+			$('#choose').fadeIn();
 		});	
     //do something special
-  }, 5000);
+  }, 15000);
 		 		  
 		  
 });
@@ -38,10 +38,10 @@ var video = $("#beroccaspot").get(0).addEventListener("ended", function() {
 		
 		if (result["status"] == "ready") {
 			$.notify("Status "+result["status"],"success");
-			$('#choose').fadeIn("slow");	
+			$('#choose').fadeIn();	
 		} else if (result["status"] == "locked") {
 			$.notify("Status "+result["status"],"error");
-			$('#locked').fadeIn("slow");
+			$('#locked').fadeIn();
 		}
 		
 		
@@ -50,7 +50,7 @@ var video = $("#beroccaspot").get(0).addEventListener("ended", function() {
 				  error: function(){
 					  $.notify("Connection to innoCube failed","error");
 					  $('#loading').fadeOut();
-					  $('#locked').fadeIn("slow");
+					  $('#locked').fadeIn();
 				  }
 });	  
 	  
