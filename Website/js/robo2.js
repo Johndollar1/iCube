@@ -9,6 +9,7 @@
     complete : function(){
     },
     success: function(result){
+		alert(result.message);
     }
 });	  
 
