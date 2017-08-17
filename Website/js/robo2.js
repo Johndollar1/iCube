@@ -6,9 +6,13 @@
 			  data: {
 				  'action':'start-left'
 			  },
+				  datatype: 'json',
     complete : function(){
+				alert("TEST");
+	
     },
     success: function(result){
+		alert("TEST");
 		alert(result.message);
     }
 });	  
