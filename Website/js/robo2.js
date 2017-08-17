@@ -12,8 +12,8 @@
 	
     },
     success: function(result){
-		alert("TEST");
-		alert(result.message);
+		alert("TEST22");
+		//alert(result.message);
     }
 });	  
 
