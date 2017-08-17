@@ -2,14 +2,35 @@
 	<head>
 		<meta charset="utf-8">
 		<title>innoCube</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="js/jquery.min.js"></script>
 		<script src="js/notify.min.js"></script>
 		<script src="js/robo.js"></script>
-		
-		<link rel="stylesheet" href="css/infocube.css" />
+		<link rel="stylesheet" href="css/innoCube.css" />
 	</head>
 	<body>
-	<div id="btn1" style="position:absolute;left:445px;top:374px;width:60px;height:55px;"></div>
-	<div id="btn2" style="position:absolute;left:445px;top:500px;width:60px;height:55px;"></div>
+		<div id="loading" class="page">
+			<p>
+				<img src="img/ajax-loader.gif">
+				<br><br>
+				Trying to connect...
+			</p>
+		</div>
+		
+		<div id="locked" class="page">
+		</div>
+		<div id="generating" class="page">
+			<div id="splashImagesContainer" class="imagesContainer"></div>
+		</div>
+		<div id="ready" class="page">
+			<div id="ready-text">Dein Booster ist fertig. Lass ihn dir schmecken... :-)</div>
+			<video width="1024" height="600" id="beroccaspot">
+  				<source src="vid/vid.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+		</div>
+		<div id="choose">
+			<div id="btn1"></div>
+			<div id="btn2"></div>
+		</div>
 	</body>
 </html>

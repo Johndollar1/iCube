@@ -2,14 +2,101 @@
 				background-color:#333;
 				font-family:Verdana;
 				color:#ffffff;
-				background: url("../img/berocca.png");
-				background-repeat: no-repeat;
 			}
 			html, body {
 				margin: 0;
 				height: 100%;
 				width: 100%;
 			}
+.page {
+	position: absolute;
+	left:0px;
+	top:0px;
+	width:1024px;
+	height:600px;
+}
+#loading {
+	text-align: center;
+}
+#loading > p {
+	padding-top:20%;
+}
+#locked {
+	display: none;
+	background:url(../img/berocca_waiting.png);
+	background-repeat: no-repeat;
+}
+#choose {
+	position: absolute;
+	left:0px;
+	top:0px;
+	width:1024px;
+	height:600px;
+	background: url("../img/berocca_choose.png");
+	background-repeat: no-repeat;
+	display: none;
+}
+#generating {
+	position: absolute;
+	left:0px;
+	top:0px;
+	width:1024px;
+	height:600px;
+	background: url("../img/berocca_generating.png");
+	background-repeat: no-repeat;
+	display: none;
+}
+#ready {
+	position: absolute;
+	left:0px;
+	top:0px;
+	width:1024px;
+	height:600px;
+	background-color:#000000;
+	display: none;
+	text-align: center;
+}
+#ready-text {
+	position:absolute;left:0px;top:20px;text-align: center;width:1024px;
+}
+#btn1 {
+	position:absolute;left:445px;top:374px;width:60px;height:55px;
+}
+#btn2 {
+position:absolute;left:445px;top:500px;width:60px;height:55px;	
+}
+.imagesContainer {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+#glassWithBubbles {
+	position: absolute;
+	left: 660px;
+	top: 30px;
+}
+/*
+ * Glass with bubbles video
+ */
+#output {
+	height: 580px;
+	margin-left: 45px;
+    width: 200px;
+}
+
+#fallback {
+	width: 200px;
+	height: 580px;
+}
+
+#buffer {
+	display: none;
+}
+
+#glassWithBubbles img{
+	margin-top:100px;
+}
+
 			#container {
 				position:absolute;
 				width:1024px;
