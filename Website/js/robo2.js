@@ -12,10 +12,8 @@
 	
     },
     success: function(result){
-		alert("TEST22");
-		alert(result[0].hello);
-		alert(result[0]["hello"].value);
-						alert(result.value);
+		$.notify("Verbindung zum Roboterarm hergestellt.","success");
+		$.notify("Status: "+result["status"] ,"success");
     }
 });	  
 
