@@ -9,7 +9,18 @@
 		  $('#choose').fadeOut("slow");
 		  $('#generating').fadeIn("slow");
 		  
-		
+		setTimeout(
+  function() 
+  {
+	  $('#generating').fadeOut("slow");
+	  $('#ready').fadeIn("slow");
+	  $('#beroccaspot').get(0).play();
+var video = $("#beroccaspot").get(0).addEventListener("ended", function() {
+   			$('#ready').fadeOut("slow");
+			$('#choose').fadeIn("slow");
+		});	
+    //do something special
+  }, 5000);
 		 		  
 		  
 });
@@ -27,7 +38,7 @@
 		
 		if (result["status"] == "ready") {
 			$.notify("Status "+result["status"],"success");
-			$('#ready').fadeIn("slow");	
+			$('#choose').fadeIn("slow");	
 		} else if (result["status"] == "locked") {
 			$.notify("Status "+result["status"],"error");
 			$('#locked').fadeIn("slow");
