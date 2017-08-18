@@ -9,7 +9,7 @@
 		  
 		  
 		  	  		  $.ajax({
-    url: 'http://127.0.0.1:1880/roboarm',
+    url: 'http://192.168.1.1:1880/roboarm',
 			  data: {
 				  'action':'start-left'
 			  },
@@ -49,7 +49,7 @@ var video = $("#beroccaspot").get(0).addEventListener("ended", function() {
 		  
 		  
 		  	  		  $.ajax({
-    url: 'http://127.0.0.1:1880/roboarm',
+    url: 'http://192.168.1.1:1880/roboarm',
 			  data: {
 				  'action':'start-right'
 			  },
@@ -85,7 +85,7 @@ var video = $("#beroccaspot").get(0).addEventListener("ended", function() {
 });
 	  
 	  		  $.ajax({
-    url: 'http://127.0.0.1:1880/roboarm',
+    url: 'http://192.168.1.1:1880/roboarm',
 			  data: {
 				  'action':'status'
 			  },
