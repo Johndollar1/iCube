@@ -1,8 +1,5 @@
-//let exports = module.exports = 
-//function roboDo(selected)
-//{
-
-const selected = 1;
+module.exports = { 
+RoboDo: function(selected) {
 
 	const NanoTimer = require('nanotimer')
 
@@ -57,11 +54,11 @@ const selected = 1;
 
 	//const arrMoves = [iPosition]; // erstelle array mit erstem eintrag initial stellung
 	const arrMoves = [iPosition]; // erstelle array mit erstem eintrag initial stellung
-
+	//console.log(selected);
 	switch(selected)
 	{
-		case 1:
-			console.log("Executing Path 1");
+		case "start-left":
+			//console.log("Executing Path 1");
 			arrMoves.push({
 			4: 625,
 			6: 399,
@@ -84,8 +81,8 @@ const selected = 1;
 			});
 			break;
 				
-		case 2:
-			console.log("Executing Path 2");
+		case "start-right":
+			//console.log("Executing Path 2");
 			arrMoves.push({
 			4: 600,
 			6: 350,
@@ -119,7 +116,7 @@ const selected = 1;
 	10: 206
 	});
 
-	console.log("arrMoves : ", arrMoves);
+	//console.log("arrMoves : ", arrMoves);
 	//console.log("arrMoves.length : ", arrMoves.length);
 
 	// pause in mü sekunden zwischen den stellungen:
@@ -144,7 +141,7 @@ const selected = 1;
 		promiseChain = promiseChain.then(function() {
 			let servoMoves = [];
 			for(let key in moves) {
-				console.log("Key : ", key, " -> iPosition : ", iPosition[key], " -> moves : ", moves[key]);
+				//console.log("Key : ", key, " -> iPosition : ", iPosition[key], " -> moves : ", moves[key]);
 				servoMoves.push(moveSmooth(key, iPosition[key], moves[key]));
 			}
 			// servo moves ist nun ein array aus einzelnen promises die von moveSmooth zurück gegeben wurden, für jeden servo eine promise
@@ -156,7 +153,7 @@ const selected = 1;
 	promiseChain.then(function() {
 			rpio.write(trigPin, rpio.LOW);
 			process.exit();
-		console.log('Done with all movements!')
+		//console.log('Done with all movements!')
 		rpio.write(trigPin, rpio.LOW);
 	})
 	.catch(function(err) {
@@ -164,6 +161,6 @@ const selected = 1;
 	//	rpio.write(trigPin, rpio.LOW);
 	})
 	return promiseChain;
-//};
 
-//roboDo(1);
+}}
+
