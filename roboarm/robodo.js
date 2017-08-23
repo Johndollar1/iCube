@@ -2,6 +2,8 @@
 //function roboDo(selected)
 //{
 
+const selected = 1;
+
 	const NanoTimer = require('nanotimer')
 
 	const makePwmDriver = require('./pwmDriver');
