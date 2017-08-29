@@ -1,5 +1,5 @@
 
-const selected = "start-left";
+const selected = "start-right";
 //
 	const NanoTimer = require('nanotimer')
 
@@ -84,28 +84,87 @@ const selected = "start-left";
 				
 		case "start-right":
 			//console.log("Executing Path 2");
-			arrMoves.push({
-			2: 600,
-			3: 350,
-			4: 585
+			arrMoves.push({ 
+			0: 490,
+			1: 309,
+			2: 172,
+			3: 472,
+			4: 130,
+			5: 206
 			});
-
 			arrMoves.push({
-	       	5: 230,
+			0: 498,
+			1: 309, 
+			2: 125,
+			3: 472,
+			4: 130,
+			5: 206
 			});
-
 			arrMoves.push({
-			0: 220,
-			1: 500,
-			2: 500,
-			3: 200
+			0: 498,
+			1: 309,
+			2: 125,
+			3: 472,
+			4: 130,
+			5: 290
 			});
-
-			arrMoves.push({
-	       	5: 200
+			arrMoves.Push({
+			0: 498,
+			1: 387,	
+			2: 145,
+			3: 622,
+			4: 130,
+			5: 290
+			});
+			arrMoves.Push({
+			0: 223,
+			1: 370,
+			2: 393,
+			3: 374,
+			4: 130,
+			5: 290
+			});
+			arrMoves.Push({
+			0: 230,
+			1: 379,
+			2: 541,
+			3: 572,
+			4: 602,
+			5: 290
+			});
+			arrMoves.Push({
+			0: 224,
+			1: 348,
+			2: 630, 
+			3: 489, 
+			4: 602, 
+			5: 290
+			});
+			arrMoves.Push({
+			0: 224, 
+			1: 348, 
+			2: 630,
+			3: 489,
+			4: 602,
+			5: 242
+			});
+			arrMoves.Push({
+			0: 224, 
+			1: 348, 
+			2: 630,
+			3: 489,
+			4: 602,
+			5: 290
+			});
+			arrMoves.Push({
+			0: 224, 
+			1: 348,
+			2: 544,
+			3: 489,
+			4: 605,
+			5: 290
 			});
 			break;
-
 	}			
 
 	arrMoves.push({

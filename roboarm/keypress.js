@@ -35,14 +35,31 @@ pwmDriver.init()
 
 
 const iInit = {
-	 0: 468,
-	 1: 356,
-	 2: 402,
-	 3: 380,
-	 4: 380,
-	 5: 206
+			0: 224, 
+			1: 348, 
+			2: 630,
+			3: 489,
+			4: 602,
+			5: 290
+//	 0: 468,
+//	 1: 356,
+//	 2: 402,
+//	 3: 380,
+//	 4: 380,
+//	 5: 206
 };
+
 const iPositions = {
+			0: 224, 
+			1: 348, 
+			2: 630,
+			3: 489,
+			4: 602,
+			5: 290
+
+};
+
+const iPark = {
 	 0: 468,
 	 1: 356,
 	 2: 402,
@@ -57,12 +74,12 @@ stdin.on('data', function (key)
 //	console.(typeof key);
 	if (key === '\u0003') {
 		Promise.all([
-			moveSmooth(0, iPositions[0], iInit[0]),
-			moveSmooth(1, iPositions[1], iInit[1]),
-			moveSmooth(2, iPositions[2], iInit[2]),
-			moveSmooth(3, iPositions[3], iInit[3]),
-			moveSmooth(4, iPositions[4], iInit[4]),
-			moveSmooth(5, iPositions[5], iInit[5])
+			moveSmooth(0, iPositions[0], iPark[0]),
+			moveSmooth(1, iPositions[1], iPark[1]),
+			moveSmooth(2, iPositions[2], iPark[2]),
+			moveSmooth(3, iPositions[3], iPark[3]),
+			moveSmooth(4, iPositions[4], iPark[4]),
+			moveSmooth(5, iPositions[5], iPark[5])
 		])
 		.then(function() {
 			rpio.write(trigPin, rpio.LOW);
