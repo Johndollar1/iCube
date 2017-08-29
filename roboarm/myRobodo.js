@@ -51,6 +51,7 @@ const selected = "start-right";
 		4: 380,
 		5: 206
 	};
+
 	console.log("Start moving");
 
 	//const arrMoves = [iPosition]; // erstelle array mit erstem eintrag initial stellung
@@ -92,6 +93,7 @@ const selected = "start-right";
 			4: 130,
 			5: 206
 			});
+
 			arrMoves.push({
 			0: 498,
 			1: 309, 
@@ -100,6 +102,7 @@ const selected = "start-right";
 			4: 130,
 			5: 206
 			});
+
 			arrMoves.push({
 			0: 498,
 			1: 309,
@@ -108,6 +111,25 @@ const selected = "start-right";
 			4: 130,
 			5: 290
 			});
+
+			arrMoves.push({
+			0: 498,
+			1: 387,
+			2: 145,
+			3: 622,
+			4: 130,
+			5: 290
+			});
+
+
+
+
+
+
+
+
+
+
 			arrMoves.Push({
 			0: 498,
 			1: 387,	
