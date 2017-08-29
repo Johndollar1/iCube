@@ -1,5 +1,5 @@
 
-const selected = "start-right";
+const selected = "start-left";
 //
 	const NanoTimer = require('nanotimer')
 
