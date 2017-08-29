@@ -193,6 +193,15 @@ const selected = "start-right";
 
 			arrMoves.push({
 			0: 223,
+			1: 387,
+			2: 393,
+			3: 374,
+			4: 130,
+			5: 290
+			});
+
+			arrMoves.push({
+			0: 223,
 			1: 370,
 			2: 393,
 			3: 374,
