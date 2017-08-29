@@ -1,6 +1,13 @@
+module.exports = { 
+myRobodo: function(selected) {
 
-const selected = "start-left";
-//
+	if (selected === "") {
+		selected = "start-left";
+	}
+
+
+	console.log("Function started");
+
 	const NanoTimer = require('nanotimer')
 
 	const makePwmDriver = require('./pwmDriver');
@@ -62,7 +69,7 @@ const selected = "start-left";
 		case "start-left":
 			//console.log("Executing Path 1");
 			arrMoves.push({ 
-			0: 490,
+			0: 436,
 			1: 309,
 			2: 172,
 			3: 472,
@@ -71,7 +78,7 @@ const selected = "start-left";
 			});
 
 			arrMoves.push({
-			0: 443,
+			0: 436,
 			1: 309, 
 			2: 125,
 			3: 472,
@@ -80,7 +87,7 @@ const selected = "start-left";
 			});
 
 			arrMoves.push({
-			0: 443,
+			0: 436,
 			1: 309,
 			2: 125,
 			3: 472,
@@ -89,7 +96,7 @@ const selected = "start-left";
 			});
 
 			arrMoves.push({
-			0: 443,
+			0: 436,
 			1: 387,
 			2: 145,
 			3: 622,
@@ -98,7 +105,16 @@ const selected = "start-left";
 			});
 
 			arrMoves.push({
-			0: 223,
+			0: 436,
+			1: 387,
+			2: 393,
+			3: 374,
+			4: 130,
+			5: 290
+			});
+
+			arrMoves.push({
+			0: 436,
 			1: 370,
 			2: 393,
 			3: 374,
@@ -107,7 +123,7 @@ const selected = "start-left";
 			});
 
 			arrMoves.push({
-			0: 223,
+			0: 230,
 			1: 379,
 			2: 541,
 			3: 572,
@@ -116,7 +132,7 @@ const selected = "start-left";
 			});
 
 			arrMoves.push({
-			0: 223,
+			0: 224,
 			1: 348,
 			2: 630,
 			3: 489,
@@ -311,5 +327,5 @@ const selected = "start-left";
 	//	rpio.write(trigPin, rpio.LOW);
 	})
 	return promiseChain;
-
+}}
 
