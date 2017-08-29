@@ -24,11 +24,11 @@ pwmDriver.init()
 	.then(function() {
 		return Promise.all([
 			pwmDriver.setPWM(0, 0, iInit[0]),
+			pwmDriver.setPWM(1, 0, iInit[1]),
 			pwmDriver.setPWM(2, 0, iInit[2]),
+			pwmDriver.setPWM(3, 0, iInit[3]),
 			pwmDriver.setPWM(4, 0, iInit[4]),
-			pwmDriver.setPWM(6, 0, iInit[6]),
-			pwmDriver.setPWM(8, 0, iInit[8]),
-			pwmDriver.setPWM(10, 0, iInit[10])
+			pwmDriver.setPWM(5, 0, iInit[5])
 		])
 	})
 	.then(function() { console.log('Robo ready!') });
@@ -36,19 +36,19 @@ pwmDriver.init()
 
 const iInit = {
 	 0: 468,
-	 2: 356,
-	 4: 402,
-	 6: 380,
-	 8: 380,
-	10: 206
+	 1: 356,
+	 2: 402,
+	 3: 380,
+	 4: 380,
+	 5: 206
 };
 const iPositions = {
 	 0: 468,
-	 2: 356,
-	 4: 402,
-	 6: 380,
-	 8: 380,
-	10: 206
+	 1: 356,
+	 2: 402,
+	 3: 380,
+	 4: 380,
+	 5: 206
 };
 
 let currentDevice = 0;
@@ -58,11 +58,11 @@ stdin.on('data', function (key)
 	if (key === '\u0003') {
 		Promise.all([
 			moveSmooth(0, iPositions[0], iInit[0]),
+			moveSmooth(1, iPositions[1], iInit[1]),
 			moveSmooth(2, iPositions[2], iInit[2]),
+			moveSmooth(3, iPositions[3], iInit[3]),
 			moveSmooth(4, iPositions[4], iInit[4]),
-			moveSmooth(6, iPositions[6], iInit[6]),
-			moveSmooth(8, iPositions[8], iInit[8]),
-			moveSmooth(10, iPositions[10], iInit[10])
+			moveSmooth(5, iPositions[5], iInit[5])
 		])
 		.then(function() {
 			rpio.write(trigPin, rpio.LOW);
@@ -76,23 +76,23 @@ stdin.on('data', function (key)
 			console.log('current Device: ' + currentDevice);
 			break;
 		case '2':
-			currentDevice = 2;
+			currentDevice = 1;
 			console.log('current Device: ' + currentDevice);
 			break;
 		case '3':
-			currentDevice = 4;
+			currentDevice = 2;
 			console.log('current Device: ' + currentDevice);
 			break;
 		case '4':
-			currentDevice = 6;
+			currentDevice = 3;
 			console.log('current Device: ' + currentDevice);
 			break;
 		case '5':
-			currentDevice = 8;
+			currentDevice = 4;
 			console.log('current Device: ' + currentDevice);
 			break;
 		case '6':
-			currentDevice = 10;
+			currentDevice = 5;
 			console.log('current Device: ' + currentDevice);
 			break;
 		case 'm':

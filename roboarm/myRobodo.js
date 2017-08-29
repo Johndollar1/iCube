@@ -1,6 +1,6 @@
-module.exports = { 
-RoboDo: function(selected) {
 
+const selected = "start-left";
+//
 	const NanoTimer = require('nanotimer')
 
 	const makePwmDriver = require('./pwmDriver');
@@ -36,20 +36,20 @@ RoboDo: function(selected) {
 
 	const iInit = {
 		0: 468,
-		2: 356,
-		4: 402,
-		6: 380,
-		8: 380,
-		10: 206
+		1: 356,
+		2: 402,
+		3: 380,
+		4: 380,
+		5: 206
 	};
 
 	const iPosition = {
 		0: 468,
-		2: 356,
-		4: 402,
-		6: 380,
-		8: 380,
-		10: 206
+		1: 356,
+		2: 402,
+		3: 380,
+		4: 380,
+		5: 206
 	};
 	console.log("Start moving");
 
@@ -61,48 +61,48 @@ RoboDo: function(selected) {
 		case "start-left":
 			//console.log("Executing Path 1");
 			arrMoves.push({
-			4: 625,
-			6: 399,
-			8: 585
+			2: 625,
+			3: 399,
+			4: 585
 			});
 
 			arrMoves.push({
-	       	10: 280,
+	       	5: 280,
 			});
 
 			arrMoves.push({
 			0: 235,
-			2: 553,
-			4: 584,
-			6: 257
+			1: 553,
+			2: 584,
+			3: 257
 			});
 
 			arrMoves.push({
-	       	10: 200
+	       	5: 200
 			});
 			break;
 				
 		case "start-right":
 			//console.log("Executing Path 2");
 			arrMoves.push({
-			4: 600,
-			6: 350,
-			8: 585
+			2: 600,
+			3: 350,
+			4: 585
 			});
 
 			arrMoves.push({
-	       	10: 230,
+	       	5: 230,
 			});
 
 			arrMoves.push({
 			0: 220,
+			1: 500,
 			2: 500,
-			4: 500,
-			6: 200
+			3: 200
 			});
 
 			arrMoves.push({
-	       	10: 200
+	       	5: 200
 			});
 			break;
 
@@ -110,11 +110,11 @@ RoboDo: function(selected) {
 
 	arrMoves.push({
 	0: 468,
-	2: 356,
-	4: 402,
-	6: 380,
-	8: 380,
-	10: 206
+	1: 356,
+	2: 402,
+	3: 380,
+	4: 380,
+	5: 206
 	});
 
 	//console.log("arrMoves : ", arrMoves);
@@ -163,5 +163,4 @@ RoboDo: function(selected) {
 	})
 	return promiseChain;
 
-}}
 
