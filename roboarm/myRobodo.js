@@ -121,24 +121,7 @@ const selected = "start-right";
 			5: 290
 			});
 
-
-
-
-
-
-
-
-
-
-			arrMoves.Push({
-			0: 498,
-			1: 387,	
-			2: 145,
-			3: 622,
-			4: 130,
-			5: 290
-			});
-			arrMoves.Push({
+			arrMoves.push({
 			0: 223,
 			1: 370,
 			2: 393,
@@ -146,7 +129,8 @@ const selected = "start-right";
 			4: 130,
 			5: 290
 			});
-			arrMoves.Push({
+
+			arrMoves.push({
 			0: 230,
 			1: 379,
 			2: 541,
@@ -154,38 +138,43 @@ const selected = "start-right";
 			4: 602,
 			5: 290
 			});
-			arrMoves.Push({
+
+			arrMoves.push({
 			0: 224,
 			1: 348,
-			2: 630, 
-			3: 489, 
-			4: 602, 
+			2: 630,
+			3: 489,
+			4: 602,
 			5: 290
 			});
-			arrMoves.Push({
-			0: 224, 
-			1: 348, 
+
+			arrMoves.push({
+			0: 224,
+			1: 348,
 			2: 630,
 			3: 489,
 			4: 602,
 			5: 242
 			});
-			arrMoves.Push({
-			0: 224, 
-			1: 348, 
+
+			arrMoves.push({
+			0: 224,
+			1: 348,
 			2: 630,
 			3: 489,
 			4: 602,
 			5: 290
 			});
-			arrMoves.Push({
-			0: 224, 
+
+			arrMoves.push({
+			0: 224,
 			1: 348,
 			2: 544,
 			3: 489,
 			4: 605,
 			5: 290
 			});
+
 			break;
 	}			
 
