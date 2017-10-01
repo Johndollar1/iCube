@@ -18,7 +18,10 @@ myRobodo: function(selected) {
 	const rpio = require('rpio');
 	const trigPin = 16;    // Trigger pin 16 = GPIO port 23
 
-	const iMoveSpeed = 8000;
+	// pause in mü sekunden zwischen den stellungen:
+	const pause = 1 * 1000 * 1000;
+
+	const iMoveSpeed = 10000;
 
 	rpio.open(trigPin, rpio.OUTPUT, rpio.LOW);
 	rpio.write(trigPin, rpio.HIGH);
@@ -34,7 +37,7 @@ myRobodo: function(selected) {
 
 	function moveSmooth(device, start, end)
 	{
-	// console.log("Move Smooth ", device, " -> ", start, " -> ", end);		
+// console.log("Move Smooth ", device, " -> ", start, " -> ", end);		
 		let direction = (end - start) > 0 ? 1 : -1;
 		if(start === end) return Promise.resolve('Arrived');
 		iPosition[device] = start+direction;
@@ -43,97 +46,38 @@ myRobodo: function(selected) {
 			.then(function() { return moveSmooth(device, iPosition[device], end) });
 	}
 
-	const iInit = { '0': 347, '1': 214, '2': 97, '3': 593, '4': 140, '5': 313 };
+	const iInit = { '0': 347, '1': 214, '2': 97, '3': 593, '4': 140, '5': 600 };
 
-	const iPosition = { '0': 347, '1': 214, '2': 97, '3': 593, '4': 140, '5': 313 };
+	const iPosition = { '0': 347, '1': 214, '2': 97, '3': 593, '4': 140, '5': 600 };
 
 	console.log("Start moving");
 
-	//const arrMoves = [iPosition]; // erstelle array mit erstem eintrag initial stellung
 	const arrMoves = [iPosition]; // erstelle array mit erstem eintrag initial stellung
 	console.log(selected);
 	switch(selected)
 	{
 		case "start-left":
 			//console.log("Executing Path 1");
-			arrMoves.push({ '0': 276, '1': 316, '2': 126, '3': 514, '4': 140, '5': 250 });
+			arrMoves.push(iInit);
+			
+			arrMoves.push({ '0': 347, '1': 402, '2': 402, '3': 395, '4': 400, '5': 573 });
 
-			arrMoves.push();
+			arrMoves.push({ '0': 190, '1': 365, '2': 184, '3': 395, '4': 141, '5': 573 });
 
-			arrMoves.push();
+			arrMoves.push({ '0': 190, '1': 365, '2': 184, '3': 395, '4': 141, '5': 573 });
 
-			arrMoves.push({
-			0: 436,
-			1: 387,
-			2: 145,
-			3: 622,
-			4: 130,
-			5: 290
-			});
+			arrMoves.push({ '0': 190, '1': 336, '2': 96, '3': 511, '4': 141, '5': 573 });
 
-			arrMoves.push({
-			0: 436,
-			1: 387,
-			2: 393,
-			3: 374,
-			4: 130,
-			5: 290
-			});
+			arrMoves.push({ '0': 190, '1': 327, '2': 136, '3': 496, '4': 141, '5': 573 });
 
-			arrMoves.push({
-			0: 436,
-			1: 370,
-			2: 393,
-			3: 374,
-			4: 130,
-			5: 290
-			});
+			arrMoves.push({ '0': 190, '1': 295, '2': 198, '3': 464, '4': 141, '5': 573 });
 
-			arrMoves.push({
-			0: 230,
-			1: 379,
-			2: 541,
-			3: 572,
-			4: 602,
-			5: 290
-			});
+			arrMoves.push({ '0': 190, '1': 295, '2': 198, '3': 464, '4': 141, '5': 615 });
 
-			arrMoves.push({
-			0: 224,
-			1: 348,
-			2: 630,
-			3: 489,
-			4: 602,
-			5: 290
-			});
+			arrMoves.push({ '0': 190, '1': 328, '2': 167, '3': 464, '4': 141, '5': 615 });
 
-			arrMoves.push({
-			0: 224,
-			1: 348,
-			2: 630,
-			3: 489,
-			4: 602,
-			5: 242
-			});
-
-			arrMoves.push({
-			0: 224,
-			1: 348,
-			2: 630,
-			3: 489,
-			4: 602,
-			5: 290
-			});
-
-			arrMoves.push({
-			0: 224,
-			1: 348,
-			2: 544,
-			3: 489,
-			4: 605,
-			5: 290
-			});
-
+			arrMoves.push({ '0': 265, '1': 328, '2': 167, '3': 464, '4': 141, '5': 615 });
+			
 			break;
 				
 		case "start-right":
@@ -240,20 +184,12 @@ myRobodo: function(selected) {
 			break;
 	}			
 
-	arrMoves.push({
-	0: 468,
-	1: 356,
-	2: 402,
-	3: 380,
-	4: 380,
-	5: 206
-	});
+	arrMoves.push(iInit);
 
 	//console.log("arrMoves : ", arrMoves);
 	//console.log("arrMoves.length : ", arrMoves.length);
 
-	// pause in mü sekunden zwischen den stellungen:
-	const pause = 3 * 1000 * 1000;
+
 
 	let promiseChain = pwmDriver.init()
 			.then(function() { return pwmDriver.setPWMFreq(60) })
@@ -274,11 +210,10 @@ myRobodo: function(selected) {
 		promiseChain = promiseChain.then(function() {
 			let servoMoves = [];
 			for(let key in moves) {
-				//console.log("Key : ", key, " -> iPosition : ", iPosition[key], " -> moves : ", moves[key]);
+				
 				servoMoves.push(moveSmooth(key, iPosition[key], moves[key]));
 			}
-			// servo moves ist nun ein array aus einzelnen promises die von moveSmooth zurück gegeben wurden, für jeden servo eine promise
-			return Promise.all(servoMoves); // alle servos gleichzeitig bewegen und erst weiter gehen wenn alle fertig sind
+			return Promise.all(servoMoves);
 		})
 		.then(function() { return usleep(pause) });
 	}
@@ -286,12 +221,12 @@ myRobodo: function(selected) {
 	promiseChain.then(function() {
 			rpio.write(trigPin, rpio.LOW);
 			process.exit();
-		//console.log('Done with all movements!')
 		rpio.write(trigPin, rpio.LOW);
 	})
 	.catch(function(err) {
 		console.error(err);
-	//	rpio.write(trigPin, rpio.LOW);
+	//	
+	rpio.write(trigPin, rpio.LOW);
 	})
 	return promiseChain;
 }}

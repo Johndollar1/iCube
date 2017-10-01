@@ -60,11 +60,7 @@ RoboDo: function(selected) {
 	{
 		case "start-left":
 			//console.log("Executing Path 1");
-			arrMoves.push({
-			4: 625,
-			6: 399,
-			8: 585
-			});
+			arrMoves.push({ '0': 245, '1': 352, '2': 88, '3': 476, '4': 140, '5': 313 });
 
 			arrMoves.push({
 	       	10: 280,
