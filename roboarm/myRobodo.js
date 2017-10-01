@@ -1,6 +1,8 @@
 module.exports = { 
 myRobodo: function(selected) {
 
+//const selected = "start-left"
+
 	if (selected === "") {
 		selected = "start-left";
 	}
@@ -41,23 +43,9 @@ myRobodo: function(selected) {
 			.then(function() { return moveSmooth(device, iPosition[device], end) });
 	}
 
-	const iInit = {
-		0: 468,
-		1: 356,
-		2: 402,
-		3: 380,
-		4: 380,
-		5: 206
-	};
+	const iInit = { '0': 347, '1': 214, '2': 97, '3': 593, '4': 140, '5': 313 };
 
-	const iPosition = {
-		0: 468,
-		1: 356,
-		2: 402,
-		3: 380,
-		4: 380,
-		5: 206
-	};
+	const iPosition = { '0': 347, '1': 214, '2': 97, '3': 593, '4': 140, '5': 313 };
 
 	console.log("Start moving");
 
@@ -68,32 +56,11 @@ myRobodo: function(selected) {
 	{
 		case "start-left":
 			//console.log("Executing Path 1");
-			arrMoves.push({ 
-			0: 436,
-			1: 309,
-			2: 172,
-			3: 472,
-			4: 130,
-			5: 206
-			});
+			arrMoves.push({ '0': 276, '1': 316, '2': 126, '3': 514, '4': 140, '5': 250 });
 
-			arrMoves.push({
-			0: 436,
-			1: 309, 
-			2: 125,
-			3: 472,
-			4: 130,
-			5: 206
-			});
+			arrMoves.push();
 
-			arrMoves.push({
-			0: 436,
-			1: 309,
-			2: 125,
-			3: 472,
-			4: 130,
-			5: 290
-			});
+			arrMoves.push();
 
 			arrMoves.push({
 			0: 436,

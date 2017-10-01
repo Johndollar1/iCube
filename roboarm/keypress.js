@@ -34,32 +34,11 @@ pwmDriver.init()
 	.then(function() { console.log('Robo ready!') });
 
 
-const iInit = {
-	 0: 468,
-	 1: 356,
-	 2: 402,
-	 3: 380,
-	 4: 380,
-	 5: 206
-};
+const iInit = { '0': 347, '1': 214, '2': 97, '3': 593, '4': 140, '5': 313 };
 
-const iPositions = {
-	 0: 468,
-	 1: 356,
-	 2: 402,
-	 3: 380,
-	 4: 380,
-	 5: 206
-};
+const iPositions = { '0': 347, '1': 214, '2': 97, '3': 593, '4': 140, '5': 313 };
 
-const iPark = {
-	 0: 468,
-	 1: 356,
-	 2: 402,
-	 3: 380,
-	 4: 380,
-	 5: 206
-};
+const iPark = { '0': 347, '1': 214, '2': 97, '3': 593, '4': 140, '5': 313 };
 
 let currentDevice = 0;
 stdin.on('data', function (key) 
