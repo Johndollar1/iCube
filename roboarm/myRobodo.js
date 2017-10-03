@@ -195,11 +195,11 @@ myRobodo: function(selected) {
 			.then(function() { return pwmDriver.setPWMFreq(60) })
 			.then(function() { Promise.all([
 					pwmDriver.setPWM(0, 0, iInit[0]),
+					pwmDriver.setPWM(1, 0, iInit[1]),
 					pwmDriver.setPWM(2, 0, iInit[2]),
+					pwmDriver.setPWM(3, 0, iInit[3]),
 					pwmDriver.setPWM(4, 0, iInit[4]),
-					pwmDriver.setPWM(6, 0, iInit[6]),
-					pwmDriver.setPWM(8, 0, iInit[8]),
-					pwmDriver.setPWM(10, 0, iInit[10])
+					pwmDriver.setPWM(5, 0, iInit[5])
 				])
 			})
 	//		.then(function() {
