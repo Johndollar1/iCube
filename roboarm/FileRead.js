@@ -10,4 +10,5 @@ fs.readFile("ServoPos.inf", function (err, inText){
 	arrMoves = JSON.parse(inText);
 	console.log("File read");
 	console.log(arrMoves);
-});
+})
+	.then(function() {return console.log(arrMoves)})
