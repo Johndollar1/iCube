@@ -1,3 +1,8 @@
+var fs = require('fs');
+var inText = fs.readFileSync("ServoPos.inf");
+console.log("File read");
+var arrMovesSync = JSON.parse(inText);
+console.log(arrMovesSync);
 
 const makePwmDriver = require('./pwmDriver');
 const pwmDriver = makePwmDriver({address: 0x40, device: '/dev/i2c-1', debug: false});
@@ -33,12 +38,8 @@ pwmDriver.init()
 	})
 	.then(function() { console.log('Robo ready!') });
 
-
-const iInit = { '0': 347, '1': 214, '2': 97, '3': 593, '4': 140, '5': 573 };
-
-const iPositions = { '0': 347, '1': 214, '2': 97, '3': 593, '4': 140, '5': 573 };
-
-const iPark = { '0': 347, '1': 214, '2': 97, '3': 593, '4': 140, '5': 573 };
+const iInit = arrMovesSync[0];
+const iPositions = iInit;
 
 let currentDevice = 0;
 stdin.on('data', function (key) 
@@ -46,12 +47,12 @@ stdin.on('data', function (key)
 //	console.(typeof key);
 	if (key === '\u0003') {
 		Promise.all([
-			moveSmooth(0, iPositions[0], iPark[0]),
-			moveSmooth(1, iPositions[1], iPark[1]),
-			moveSmooth(2, iPositions[2], iPark[2]),
-			moveSmooth(3, iPositions[3], iPark[3]),
-			moveSmooth(4, iPositions[4], iPark[4]),
-			moveSmooth(5, iPositions[5], iPark[5])
+			moveSmooth(0, iPositions[0], iInit[0]),
+			moveSmooth(1, iPositions[1], iInit[1]),
+			moveSmooth(2, iPositions[2], iInit[2]),
+			moveSmooth(3, iPositions[3], iInit[3]),
+			moveSmooth(4, iPositions[4], iInit[4]),
+			moveSmooth(5, iPositions[5], iInit[5])
 		])
 		.then(function() {
 			rpio.write(trigPin, rpio.LOW);
@@ -96,10 +97,22 @@ stdin.on('data', function (key)
 			break;
 		case 'p':
 			console.log(iPositions);
-		
+		case 'i'
+			console.log("Moving to initial position");
+			for (var i = 0; i < arrMovesSync.length ; i++) {
+				let moves = arrMovesSync[i];
+				promiseChain = promiseChain.then(function() {
+				let servoMoves = [];
+				for(let key in moves) {
+					servoMoves.push(moveSmooth(key, arrMovesSync[key], moves[key]));
+				}
+				return Promise.all(servoMoves);
+			})
+				.then(function() { return usleep(pause) });
+			break;
+		}
 	}
 //	console.log('current Device: ' + currentDevice);
-	
 });
 
 
