@@ -24,8 +24,8 @@ rpio.open(trigPin, rpio.OUTPUT, rpio.LOW);
 
 rpio.write(trigPin, rpio.HIGH);
 
-//pwmDriver.init()
-let promiseChain = pwmDriver.init()
+pwmDriver.init()
+//let promiseChain = pwmDriver.init()
 	.then(function() { return pwmDriver.setPWMFreq(60) })
 	.then(function() {
 		return Promise.all([
@@ -47,18 +47,7 @@ stdin.on('data', function (key)
 {
 //	console.(typeof key);
 	if (key === '\u0003') {
-		Promise.all([
-			moveSmooth(0, iPositions[0], iInit[0]),
-			moveSmooth(1, iPositions[1], iInit[1]),
-			moveSmooth(2, iPositions[2], iInit[2]),
-			moveSmooth(3, iPositions[3], iInit[3]),
-			moveSmooth(4, iPositions[4], iInit[4]),
-			moveSmooth(5, iPositions[5], iInit[5])
-		])
-		.then(function() {
-			rpio.write(trigPin, rpio.LOW);
-			process.exit();
-		})
+		console.log('Haha! Nice try!');
 	}
 	switch(key)
 	{
@@ -91,25 +80,55 @@ stdin.on('data', function (key)
 			pwmDriver.setPWM(currentDevice, 0, ++iPositions[currentDevice]);
 			console.log(iPositions[currentDevice]);
 			break;
+		case 'n':
+			console.log('Starting from scratch!');
+			fs.writeFileSync('positionsBackup.json', JSON.stringify(arrMovesSync, null, 2));
+			arrMovesSync = [arrMovesSync[0]];
+			break;
 		case 'l':
 //			console.log('less');
 			pwmDriver.setPWM(currentDevice, 0, --iPositions[currentDevice]);
 			console.log(iPositions[currentDevice]);
 			break;
 		case 'p':
+			console.log('Adding position!');
 			console.log(iPositions);
+			arrMovesSync.push(iPositions);
+			break;
+		case 's':// TODO try catch
+			console.log('Saving positions to file!');
+			fs.writeFileSync('output.json', JSON.stringify(arrMovesSync, null, 2));
+			break;
+		case 'q':
+			console.log('Exiting! :(');
+			Promise.all([
+				moveSmooth(0, iPositions[0], iInit[0]),
+				moveSmooth(1, iPositions[1], iInit[1]),
+				moveSmooth(2, iPositions[2], iInit[2]),
+				moveSmooth(3, iPositions[3], iInit[3]),
+				moveSmooth(4, iPositions[4], iInit[4]),
+				moveSmooth(5, iPositions[5], iInit[5])
+			])
+			.then(function() {
+				rpio.write(trigPin, rpio.LOW);
+				coonsole.log('Thank you and Goodbye!');
+				process.exit();
+			})
+			break;
 		case 'i':
 			console.log("Moving to initial position");
+			let promiseChain = pwmDriver.init();
 			for (var i = 0; i < arrMovesSync.length ; i++) {
 				let moves = arrMovesSync[i];
 				promiseChain = promiseChain.then(function() {
-				let servoMoves = [];
-				for(let key in moves) {
-					servoMoves.push(moveSmooth(key, arrMovesSync[key], moves[key]));
-				}
-				return Promise.all(servoMoves);
-			})
+					let servoMoves = [];
+					for(let key in moves) {
+						servoMoves.push(moveSmooth(key, arrMovesSync[key], moves[key]));
+					}
+					return Promise.all(servoMoves);
+				})
 				.then(function() { return usleep(pause) });
+			}
 			break;
 		}
 	}

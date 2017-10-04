@@ -19,9 +19,9 @@ myRobodo: function(selected) {
 	const trigPin = 16;    // Trigger pin 16 = GPIO port 23
 
 	// pause in mü sekunden zwischen den stellungen:
-	const pause = 1 * 1000 * 1000;
+	const pause = 1 * 1000 * 1000; // 1e-6
 
-	const iMoveSpeed = 10000;
+	// const iMoveSpeed = 10000;
 
 	rpio.open(trigPin, rpio.OUTPUT, rpio.LOW);
 	rpio.write(trigPin, rpio.HIGH);
@@ -35,15 +35,15 @@ myRobodo: function(selected) {
 	    })
 	}
 
-	function moveSmooth(device, start, end)
+	function moveSmooth(device, start, end, sleep)
 	{
 // console.log("Move Smooth ", device, " -> ", start, " -> ", end);		
 		let direction = (end - start) > 0 ? 1 : -1;
 		if(start === end) return Promise.resolve('Arrived');
 		iPosition[device] = start+direction;
 		return pwmDriver.setPWM(device, 0, iPosition[device])
-			.then(function() { return usleep(iMoveSpeed) })
-			.then(function() { return moveSmooth(device, iPosition[device], end) });
+			.then(function() { return usleep(sleep) })
+			.then(function() { return moveSmooth(device, iPosition[device], end, sleep) });
 	}
 
 	const iInit = { '0': 347, '1': 214, '2': 97, '3': 593, '4': 140, '5': 600 };
@@ -78,105 +78,7 @@ myRobodo: function(selected) {
 				
 		case "start-right":
 			//console.log("Executing Path 2");
-			arrMoves.push({ 
-			0: 490,
-			1: 309,
-			2: 172,
-			3: 472,
-			4: 130,
-			5: 206
-			});
-
-			arrMoves.push({
-			0: 498,
-			1: 309, 
-			2: 125,
-			3: 472,
-			4: 130,
-			5: 206
-			});
-
-			arrMoves.push({
-			0: 498,
-			1: 309,
-			2: 125,
-			3: 472,
-			4: 130,
-			5: 290
-			});
-
-			arrMoves.push({
-			0: 498,
-			1: 387,
-			2: 145,
-			3: 622,
-			4: 130,
-			5: 290
-			});
-
-			arrMoves.push({
-			0: 223,
-			1: 387,
-			2: 393,
-			3: 374,
-			4: 130,
-			5: 290
-			});
-
-			arrMoves.push({
-			0: 223,
-			1: 370,
-			2: 393,
-			3: 374,
-			4: 130,
-			5: 290
-			});
-
-			arrMoves.push({
-			0: 230,
-			1: 379,
-			2: 541,
-			3: 572,
-			4: 602,
-			5: 290
-			});
-
-			arrMoves.push({
-			0: 224,
-			1: 348,
-			2: 630,
-			3: 489,
-			4: 602,
-			5: 290
-			});
-
-			arrMoves.push({
-			0: 224,
-			1: 348,
-			2: 630,
-			3: 489,
-			4: 602,
-			5: 242
-			});
-
-			arrMoves.push({
-			0: 224,
-			1: 348,
-			2: 630,
-			3: 489,
-			4: 602,
-			5: 290
-			});
-
-			arrMoves.push({
-			0: 224,
-			1: 348,
-			2: 544,
-			3: 489,
-			4: 605,
-			5: 290
-			});
-
+			
 			break;
 	}			
 
@@ -205,9 +107,17 @@ myRobodo: function(selected) {
 
 		promiseChain = promiseChain.then(function() {
 			let servoMoves = [];
+			let maxDist = 0;
 			for(let key in moves) {
-				
-				servoMoves.push(moveSmooth(key, iPosition[key], moves[key]));
+				let dist = Math.abs(iPosition[key] - moves[key]);
+				if(maxDist < dist) {
+					maxDist = dist;
+				}
+			}
+			for(let key in moves) {
+				let dist = Math.abs(iPosition[key] - moves[key]);
+				let sleep = maxDist * 8000 / dist;
+				servoMoves.push(moveSmooth(key, iPosition[key], moves[key], sleep));
 			}
 			return Promise.all(servoMoves);
 		})
