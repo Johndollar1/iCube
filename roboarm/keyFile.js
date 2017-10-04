@@ -24,8 +24,7 @@ rpio.open(trigPin, rpio.OUTPUT, rpio.LOW);
 
 rpio.write(trigPin, rpio.HIGH);
 
-//pwmDriver.init()
-let promiseChain = pwmDriver.init()
+pwmDriver.init()
 	.then(function() { return pwmDriver.setPWMFreq(60) })
 	.then(function() {
 		return Promise.all([
@@ -102,7 +101,7 @@ stdin.on('data', function (key)
 			console.log("Moving to initial position");
 			for (var i = 0; i < arrMovesSync.length ; i++) {
 				let moves = arrMovesSync[i];
-				promiseChain = promiseChain.then(function() {
+				let promiseChain = promiseChain.then(function() {
 				let servoMoves = [];
 				for(let key in moves) {
 					servoMoves.push(moveSmooth(key, arrMovesSync[key], moves[key]));
