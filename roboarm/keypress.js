@@ -115,8 +115,6 @@ stdin.on('data', function (key)
 //	console.log('current Device: ' + currentDevice);
 });
 
-
-
 function usleep (micros) {
   return new Promise(
     function (resolve, reject) {
