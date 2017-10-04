@@ -11,4 +11,7 @@ fs.readFile("ServoPos.inf", function (err, inText){
 	console.log("File read");
 	console.log(arrMoves);
 })
-	.then(function() {return console.log(arrMoves)})
+
+var arrMovesSync = fs.readFileSync("ServoPos.inf");
+console.log("File read again");
+console.log(arrMovesSync);
