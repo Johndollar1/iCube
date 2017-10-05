@@ -132,7 +132,7 @@ stdin.on('data', function (key)
 				.then(function() { return usleep(pause) });
 			}
 			break;
-		}
+//		}
 	}
 //	console.log('current Device: ' + currentDevice);
 });
