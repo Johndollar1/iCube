@@ -1,3 +1,5 @@
+// New Version with variable pause
+
 module.exports = { 
 myRobodo: function(selected) {
 
