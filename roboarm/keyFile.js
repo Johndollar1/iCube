@@ -1,3 +1,5 @@
+// Updated with File write
+
 var fs = require('fs');
 var inText = fs.readFileSync("ServoPos.inf");
 console.log("File read");
