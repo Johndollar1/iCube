@@ -1,7 +1,7 @@
 // Updated with File write
 
 var fs = require('fs');
-var inText = fs.readFileSync("ServoPos.inf");
+var inText = fs.readFileSync("ServoPos.json");
 console.log("File read");
 var arrMovesSync = JSON.parse(inText);
 console.log(arrMovesSync);
@@ -99,7 +99,8 @@ stdin.on('data', function (key)
 			break;
 		case 's':// TODO try catch
 			console.log('Saving positions to file!');
-			fs.writeFileSync('output.json', JSON.stringify(arrMovesSync, null, 2));
+//			fs.writeFileSync('ServoPos.json', JSON.stringify(arrMovesSync, null, 2));
+			fs.writeFileSync('ServoPos.json', JSON.stringify(arrMovesSync));
 			break;
 		case 'q':
 			console.log('Exiting! :(');
@@ -113,7 +114,7 @@ stdin.on('data', function (key)
 			])
 			.then(function() {
 				rpio.write(trigPin, rpio.LOW);
-				coonsole.log('Thank you and Goodbye!');
+				console.log('Thank you and Goodbye!');
 				process.exit();
 			})
 			break;
