@@ -1,49 +1,68 @@
-  $(document).ready(function() {
-     
+$(document).ready(function() {
+
+	function checkDoctor() {
+		$.ajax({
+	    		url: 'http://192.168.1.1:1880/roboarm',
+			data: {
+				'action':'getDoctor'
+		  	},
+	    		complete : function(){
+	    		},
+	    		success: function(result){
+				if (result["status"] == "signed") {
+					$.notify("Status "+result["status"],"success");
+					$('#choose').fadeOut();
+					$('#generating').fadeIn();
+	
+					setTimeout(function() {
+		  				$('#generating').fadeOut();
+		  				$('#ready').fadeIn();
+		  				$('#beroccaspot').get(0).play();
+						var video = $("#beroccaspot").get(0).addEventListener("ended", function() {
+	   						$('#ready').fadeOut();
+							$('#choose').fadeIn();
+						});	
+	  				}, 15000);
+				} else {
+					$.notify("Waiting for doctor...","info");
+					setTimeout(function() {checkDoctor(); },3000);
+				}	
+	    		},
+			error: function(){
+				$.notify("Connection to innoCube failed","error");
+				$('#loading').fadeOut();
+				$('#locked').fadeIn();
+			}
+		});
+	}
+
+
 	var imagesContainer;
 	var twitterContainer;
 	var imageContent;
 	var glassWithBubbles;
+	var checkvalue = false;
 	  
-	  $( "#btn1" ).click(function() {
-		  
-		  
-		  	  		  $.ajax({
-    url: 'http://192.168.1.1:1880/roboarm',
-			  data: {
-				  'action':'start-left'
-			  },
-    complete : function(){
-    },
-    success: function(result){
-		$.notify("Start left","success");		
-    },
-				  error: function(){
-					  $.notify("Connection to innoCube failed","error");
-					  $('#loading').fadeOut();
-					  $('#locked').fadeIn();
-				  }
-});	 
-		  
-		  $('#choose').fadeOut();
-		  $('#generating').fadeIn();
-		  
-		setTimeout(
-  function() 
-  {
-	  $('#generating').fadeOut();
-	  $('#ready').fadeIn();
-	  $('#beroccaspot').get(0).play();
-var video = $("#beroccaspot").get(0).addEventListener("ended", function() {
-   			$('#ready').fadeOut();
-			$('#choose').fadeIn();
-		});	
-    //do something special
-  }, 15000);
-		 		  
-		  
-});
-	  
+	$( "#btn1" ).click(function() { 
+		$.ajax({
+    			url: 'http://192.168.1.1:1880/roboarm',
+			data: {
+				'action':'start-left'
+			},
+    			complete : function(){
+    			},
+    			success: function(result){
+				checkDoctor();		
+    			},
+			error: function(){
+				$.notify("Connection to innoCube failed","error");
+				$('#loading').fadeOut();
+				$('#locked').fadeIn();
+			}
+		});  
+	});
+
+  
 	  
 	    $( "#btn2" ).click(function() {
 		  
@@ -56,7 +75,7 @@ var video = $("#beroccaspot").get(0).addEventListener("ended", function() {
     complete : function(){
     },
     success: function(result){
-		$.notify("Start right","success");		
+		checkDoctor();		
     },
 				  error: function(){
 					  $.notify("Connection to innoCube failed","error");
@@ -180,6 +199,4 @@ function GlassWithBubbles()
 		return view;
 	};
 }
-	
-
 
