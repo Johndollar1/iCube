@@ -1,14 +1,7 @@
 // New Version with variable pause
 
 module.exports = { 
-myRobodo: function(selected) {
-
-//const selected = "start-left"
-
-	if (selected === "") {
-		selected = "start-left";
-	}
-
+myDispPanel: function() {
 
 	console.log("Function started");
 
@@ -55,85 +48,37 @@ myRobodo: function(selected) {
 	console.log("Start moving");
 
 	const arrMoves = [iPosition]; // erstelle array mit erstem eintrag initial stellung
-	console.log(selected);
-	switch(selected)
-	{
-		case "start-left":
-			//console.log("Executing Path 1");
-			arrMoves.push(iInit);
-			
-			arrMoves.push({ '0': 497, '1': 364, '2': 226, '3': 620, '4': 140, '5': 573 });
+//	console.log(selected);
+	arrMoves.push(iInit);
 
-			arrMoves.push({ '0': 271, '1': 364, '2': 126, '3': 488, '4': 140, '5': 573 });
+	arrMoves.push({ '0': 497, '1': 382, '2': 97, '3': 593, '4': 407, '5': 573 });
 
-			arrMoves.push({ '0': 262, '1': 320, '2': 170, '3': 464, '4': 140, '5': 550 });
+	arrMoves.push({ '0': 410, '1': 382, '2': 315, '3': 156, '4': 407, '5': 573 });
 
-			arrMoves.push({ '0': 262, '1': 297, '2': 214, '3': 441, '4': 140, '5': 550 });
+	arrMoves.push({ '0': 410, '1': 316, '2': 367, '3': 122, '4': 407, '5': 573 });
 
-			arrMoves.push({ '0': 262, '1': 279, '2': 239, '3': 441, '4': 154, '5': 550 });
+	arrMoves.push({ '0': 410, '1': 395, '2': 419, '3': 390, '4': 407, '5': 662 });
 
-			arrMoves.push({ '0': 262, '1': 279, '2': 239, '3': 438, '4': 154, '5': 613 });
+	arrMoves.push({ '0': 410, '1': 395, '2': 419, '3': 390, '4': 633, '5': 662 });
 
-			arrMoves.push({ '0': 262, '1': 318, '2': 189, '3': 438, '4': 154, '5': 613 });
+	arrMoves.push({ '0': 410, '1': 395, '2': 419, '3': 390, '4': 137, '5': 662 });
 
-			arrMoves.push({ '0': 262, '1': 384, '2': 117, '3': 438, '4': 154, '5': 613 });
+	arrMoves.push({ '0': 410, '1': 424, '2': 288, '3': 87, '4': 399, '5': 662 });
 
-			arrMoves.push({ '0': 262, '1': 384, '2': 422, '3': 401, '4': 673, '5': 613 });
+	arrMoves.push({ '0': 400, '1': 368, '2': 305, '3': 156, '4': 421, '5': 662 });
 
-			arrMoves.push({ '0': 325, '1': 316, '2': 296, '3': 281, '4': 633, '5': 613 });
+	arrMoves.push({ '0': 400, '1': 387, '2': 355, '3': 141, '4': 393, '5': 611 });
 
-//			arrMoves.push({ '0': 325, '1': 316, '2': 296, '3': 281, '4': 633, '5': 529 });
+	arrMoves.push({ '0': 490, '1': 429, '2': 311, '3': 149, '4': 393, '5': 611 });
 
-			arrMoves.push({ '0': 325, '1': 316, '2': 282, '3': 266, '4': 633, '5': 529 });
+//	arrMoves.push();
 
-			arrMoves.push({ '0': 497, '1': 403, '2': 296, '3': 281, '4': 327, '5': 529 });
-
-//			arrMoves.push();
-
-			break;
-				
-		case "start-right":
-			//console.log("Executing Path 2");
-			arrMoves.push(iInit);
-
-			arrMoves.push({ '0': 497, '1': 364, '2': 226, '3': 620, '4': 140, '5': 573 });
-
-			arrMoves.push({ '0': 500, '1': 364, '2': 126, '3': 488, '4': 140, '5': 573 });
-
-			arrMoves.push({ '0': 547, '1': 320, '2': 173, '3': 464, '4': 140, '5': 550 });
-
-			arrMoves.push({ '0': 547, '1': 297, '2': 214, '3': 441, '4': 140, '5': 550 });
-
-			arrMoves.push({ '0': 547, '1': 279, '2': 239, '3': 441, '4': 154, '5': 550 });
-
-			arrMoves.push({ '0': 547, '1': 279, '2': 239, '3': 438, '4': 154, '5': 613 });
-
-			arrMoves.push({ '0': 547, '1': 318, '2': 189, '3': 438, '4': 154, '5': 613 });
-
-			arrMoves.push({ '0': 547, '1': 384, '2': 117, '3': 438, '4': 154, '5': 613 });
-
-			arrMoves.push({ '0': 547, '1': 384, '2': 422, '3': 401, '4': 673, '5': 613 });
-
-			arrMoves.push({ '0': 325, '1': 316, '2': 296, '3': 281, '4': 633, '5': 613 });
-
-//			arrMoves.push({ '0': 325, '1': 316, '2': 296, '3': 281, '4': 633, '5': 529 });
-
-			arrMoves.push({ '0': 325, '1': 316, '2': 282, '3': 266, '4': 633, '5': 529 });
-
-			arrMoves.push({ '0': 497, '1': 403, '2': 296, '3': 281, '4': 327, '5': 529 });
-			
- 
-
-			
-			break;
-	}			
+//	arrMoves.push();
 
 	arrMoves.push(iInit);
 
 	//console.log("arrMoves : ", arrMoves);
 	//console.log("arrMoves.length : ", arrMoves.length);
-
-
 
 	let promiseChain = pwmDriver.init()
 			.then(function() { return pwmDriver.setPWMFreq(60) })
