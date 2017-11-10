@@ -59,6 +59,9 @@
 #ready-text {
 	position:absolute;left:0px;top:20px;text-align: center;width:1024px;
 }
+#info {
+	position:absolute;left:5px;top:535px;width:60px;height:55px;
+}
 #btn1 {
 	position:absolute;left:445px;top:374px;width:60px;height:55px;
 }

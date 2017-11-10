@@ -84,24 +84,33 @@ $(document).ready(function() {
 				  }
 });	 
 		  
-		  $('#choose').fadeOut();
-		  $('#generating').fadeIn();
-		  
-		setTimeout(
-  function() 
-  {
-	  $('#generating').fadeOut();
-	  $('#ready').fadeIn();
-	  $('#beroccaspot').get(0).play();
-var video = $("#beroccaspot").get(0).addEventListener("ended", function() {
-   			$('#ready').fadeOut();
-			$('#choose').fadeIn();
-		});	
-    //do something special
-  }, 15000);
-		 		  
 		  
 });
+	
+		    $( "#info" ).click(function() {
+		  
+		  
+		  	  		  $.ajax({
+    url: 'http://192.168.1.1:1880/roboarm',
+			  data: {
+				  'action':'information'
+			  },
+    complete : function(){
+		
+    },
+    success: function(result){
+		$.notify("Information wird geladen...","success");	
+    },
+				  error: function(){
+					  $.notify("Connection to innoCube failed","error");
+
+				  }
+});	 
+		  
+		  
+});
+	
+	
 	  
 	  		  $.ajax({
     url: 'http://192.168.1.1:1880/roboarm',
